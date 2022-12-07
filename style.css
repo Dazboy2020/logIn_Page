@@ -12,7 +12,14 @@ html {
 body {
 	font-family: "Poppins", sans-serif;
 	color: #444;
-	background-image: linear-gradient(to top left, #f3cf8d 0%, #f7d59d 100%);
+	/* background-image: linear-gradient(to top left, #f3cf8d 0%, #f7d59d 100%); */
+	background: #0f2027; /* fallback for old browsers */
+
+	background: linear-gradient(
+		to right,
+		#2c3e50,
+		#bdc3c7
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 	height: 100vh;
 	padding: 2rem;
@@ -35,8 +42,14 @@ body {
 }
 .container {
 	padding: 5rem;
-	/* background-image: linear-gradient(to top left, #8adef6 0%, #a9e7ee 100%); */
-	background-image: linear-gradient(to top left, #e7c06c 0%, #f2c58a 100%);
+	/* background-image: linear-gradient(to top left, #e7c06c 0%, #f2c58a 100%); */
+	/* background-image: linear-gradient(to top left, #c8c6c2 0%, #484745 100%); */
+	background: #bdc3c7; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to right,
+		#2c3e50,
+		#bdc3c7
+	); /* Chrome 10-25, Safari 5.1-6 */
 
 	border: black solid 1px;
 	border-radius: 5px;
