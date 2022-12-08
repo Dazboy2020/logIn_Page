@@ -40,10 +40,9 @@ body {
 }
 
 .container {
-	/* display: none; */
+	min-width: 40rem;
+	min-height: 40rem;
 	padding: 5rem;
-	/* background-image: linear-gradient(to top left, #e7c06c 0%, #f2c58a 100%); */
-	/* background-image: linear-gradient(to top left, #c8c6c2 0%, #484745 100%); */
 	background: #bdc3c7; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
 		to right,
@@ -87,6 +86,11 @@ body {
 	margin-top: 2rem;
 }
 
+.password__confirm__input {
+	margin-top: 2rem;
+}
+margin-top: 2rem;
+
 .submit__btn:hover,
 .sign__btn:hover {
 	transform: scale(0.98);
@@ -99,16 +103,9 @@ body {
 
 /* !HIDDEN WINDOW */
 
-.sign_up__greeting {
-	display: flex;
-	justify-content: center;
-	font-size: 3.5rem;
-	font-weight: 700;
-	margin-bottom: 1rem;
-}
-
 .container2 {
-	display: none;
+	min-width: 40rem;
+	min-height: 40rem;
 	padding: 5rem;
 	background: #bdc3c7; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
@@ -124,14 +121,14 @@ body {
 }
 
 .newAccount {
-	display: none;
+	/* display: none; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
-	border-style: outset;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+	/* border-style: outset;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); */
 }
 
 .username__signup__input,

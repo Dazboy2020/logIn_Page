@@ -10,9 +10,12 @@ const accounts = [account1];
 //! Elements
 const inputLoginUsername = document.querySelector(".username__input");
 const inputLoginPin = document.querySelector(".password__input");
+const displaySignUpWindow = document.querySelector(".container2");
+const displayLogInWindow = document.querySelector(".container");
 
 //? Buttons
 const btnLogin = document.querySelector(".submit__btn");
+const btnSign = document.querySelector(".sign__btn");
 
 //! LOG_IN function
 btnLogin.addEventListener("click", function (e) {
@@ -27,4 +30,11 @@ btnLogin.addEventListener("click", function (e) {
 	} else {
 		console.log("fail");
 	}
+});
+
+//! SIGN_UP Button Event Handler
+btnSign.addEventListener("click", function (e) {
+	e.preventDefault();
+	displayLogInWindow.classList.toggle("hidden");
+	displaySignUpWindow.classList.toggle("hidden");
 });
