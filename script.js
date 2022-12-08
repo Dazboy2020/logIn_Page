@@ -15,6 +15,8 @@ const inputLoginPin = document.querySelector(".password__input");
 const displaySignUpWindow = document.querySelector(".container2");
 const displayLogInWindow = document.querySelector(".container");
 
+const mainApplication = document.querySelector(".MainApp");
+
 //! ERROR MESSAGES
 const login__details__incorrect = document.querySelector(".error__message");
 
@@ -23,6 +25,13 @@ const btnLogin = document.querySelector(".submit__btn");
 const btnSign = document.querySelector(".sign__btn");
 
 //!!  ########### FUNCTIONS #############
+
+//! Hide logIn & Create User Windows
+const successfulLogin = function () {
+	displayLogInWindow.classList.add("hidden");
+	displaySignUpWindow.classList.add("hidden");
+	mainApplication.classList.remove("hidden");
+};
 
 //! LOG_IN function
 btnLogin.addEventListener("click", function (e) {
@@ -33,6 +42,7 @@ btnLogin.addEventListener("click", function (e) {
 	);
 
 	if (currentAccount?.pin === +inputLoginPin.value) {
+		successfulLogin();
 		console.log("success");
 	} else {
 		clearLoginInputs();
@@ -41,7 +51,6 @@ btnLogin.addEventListener("click", function (e) {
 });
 
 //!Clear Login input fields function
-
 const clearLoginInputs = function () {
 	inputLoginUsername.value = "";
 	inputLoginPin.value = "";

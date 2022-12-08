@@ -12,9 +12,7 @@ html {
 body {
 	font-family: "Poppins", sans-serif;
 	color: #444;
-	/* background-image: linear-gradient(to top left, #f3cf8d 0%, #f7d59d 100%); */
 	background: #0f2027; /* fallback for old browsers */
-
 	background: linear-gradient(
 		to right,
 		#2c3e50,
@@ -31,6 +29,14 @@ body {
 	justify-content: center;
 }
 
+.MainApp {
+	display: flex;
+	min-height: 60rem;
+	min-width: 80rem;
+	padding: 5rem;
+	background-color: whitesmoke;
+}
+
 .welcome {
 	display: flex;
 	justify-content: center;
@@ -40,6 +46,7 @@ body {
 }
 
 .container {
+	/* position: absolute; */
 	min-width: 40rem;
 	min-height: 40rem;
 	padding: 5rem;
@@ -106,6 +113,7 @@ margin-top: 2rem;
 /* !HIDDEN WINDOW */
 
 .container2 {
+	/* position: relative; */
 	min-width: 40rem;
 	min-height: 40rem;
 	padding: 5rem;
@@ -123,14 +131,11 @@ margin-top: 2rem;
 }
 
 .newAccount {
-	/* display: none; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
-	/* border-style: outset;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); */
 }
 
 .username__signup__input,
@@ -160,7 +165,6 @@ margin-top: 2rem;
 .error__message {
 	font-size: 1.7rem;
 	font-weight: 500;
-	/* display: flex; */
 	justify-content: center;
 	text-align: center;
 	color: #f7022b;
