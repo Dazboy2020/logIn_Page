@@ -80,10 +80,12 @@ body {
 	width: 100%;
 	border-radius: 10px;
 	border: black solid 1px;
+	cursor: pointer;
 }
 
 .submit__btn {
 	margin-top: 2rem;
+	cursor: pointer;
 }
 
 .password__confirm__input {
@@ -144,4 +146,13 @@ margin-top: 2rem;
 	width: 100%;
 	border-radius: 10px;
 	border: black solid 1px;
+	cursor: pointer;
+}
+
+.MainPage__btn {
+	cursor: pointer;
+	margin-top: 1.5rem;
+	font-size: 1.5rem;
+	border: none;
+	background: none;
 }
