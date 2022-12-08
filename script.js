@@ -43,7 +43,6 @@ btnLogin.addEventListener("click", function (e) {
 
 	if (currentAccount?.pin === +inputLoginPin.value) {
 		successfulLogin();
-		console.log("success");
 	} else {
 		clearLoginInputs();
 		displayIncorrectLoginError();

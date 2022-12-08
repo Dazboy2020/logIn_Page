@@ -31,8 +31,8 @@ body {
 
 .MainApp {
 	display: flex;
-	min-height: 60rem;
-	min-width: 80rem;
+	min-height: 55rem;
+	min-width: 90rem;
 	padding: 5rem;
 	background-color: whitesmoke;
 }
