@@ -76,10 +76,24 @@ body {
 }
 
 .username__input,
-.password__input,
+.password__input {
+	font-size: 1.5rem;
+	padding: 1rem;
+	margin-bottom: 0.8rem;
+	justify-content: center;
+	width: 100%;
+	border-radius: 10px;
+	border: black solid 2px;
+}
+/* 
+.username__input:hover,
+.password__input:hover {
+	border-color: cadetblue;
+} */
+
 .submit__btn,
-.sign__btn {
-	display: flex;
+.create__btn {
+	/* display: flex; */
 	font-size: 1.5rem;
 	padding: 1rem;
 	margin-bottom: 0.8rem;
@@ -101,7 +115,7 @@ body {
 margin-top: 2rem;
 
 .submit__btn:hover,
-.sign__btn:hover {
+.create__btn:hover {
 	transform: scale(0.98);
 	transition: all 0.2s;
 }

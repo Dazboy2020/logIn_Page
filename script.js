@@ -22,7 +22,9 @@ const login__details__incorrect = document.querySelector(".error__message");
 
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
-const btnSign = document.querySelector(".sign__btn");
+const btnCreate = document.querySelector(".create__btn");
+const mainPageLink = document.querySelector(".MainPage__btn");
+const signUp = document.querySelector(".signup__btn");
 
 //!!  ########### FUNCTIONS #############
 
@@ -63,9 +65,26 @@ const displayIncorrectLoginError = function () {
 	}, "3000");
 };
 
-//! SIGN_UP Button Event Handler
-btnSign.addEventListener("click", function (e) {
+//! Create Button Event Handler
+btnCreate.addEventListener("click", function (e) {
 	e.preventDefault();
+	console.log("create");
 	displayLogInWindow.classList.toggle("hidden");
 	displaySignUpWindow.classList.toggle("hidden");
+});
+
+//! Main Page Link Button Event Handler
+mainPageLink.addEventListener("click", function (e) {
+	e.preventDefault();
+	console.log("main");
+	displayLogInWindow.classList.toggle("hidden");
+	displaySignUpWindow.classList.toggle("hidden");
+});
+
+//! SIgn Up Button Event Handler
+signUp.addEventListener("click", function (e) {
+	e.preventDefault();
+	console.log("sign");
+	// displayLogInWindow.classList.toggle("hidden");
+	// displaySignUpWindow.classList.toggle("hidden");
 });
