@@ -7,18 +7,29 @@ const account1 = {
 
 const accounts = [account1];
 
-//! ELEMENTS
-const inputLoginUsername = document.querySelector(".username__input");
-const inputLoginPin = document.querySelector(".password__input");
+//!  ##### ELEMENTS #####
 
-//!DISPLAY WINDOWS SIGN_UP & CREATE ACCOUNT
+//! LOG-IN
+const loginUsername = document.querySelector(".username__input");
+const loginPin = document.querySelector(".password__input");
+
+//!DISPLAY WINDOWS (SIGN_UP & CREATE ACCOUNT)
 const displaySignUpWindow = document.querySelector(".container2");
 const displayLogInWindow = document.querySelector(".container");
 
 const mainApplication = document.querySelector(".MainApp");
 
+//! SIGN-UP DETAILS
+const enterUsername = document.querySelector(".username__signup__input");
+const enterPassword = document.querySelector(".password__signup__input");
+const confirmPassword = document.querySelector(".password__confirm__input");
+
 //! ERROR MESSAGES
 const login__details__incorrect = document.querySelector(".error__message");
+
+const signUp__details__incorrect = document.querySelector(
+	".error__message__signUp"
+);
 
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
@@ -40,10 +51,10 @@ btnLogin.addEventListener("click", function (e) {
 	e.preventDefault();
 
 	let currentAccount = accounts.find(
-		(acc) => acc.owner === inputLoginUsername.value
+		(acc) => acc.owner === loginUsername.value
 	);
 
-	if (currentAccount?.pin === +inputLoginPin.value) {
+	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
 	} else {
 		clearLoginInputs();
@@ -53,8 +64,8 @@ btnLogin.addEventListener("click", function (e) {
 
 //!Clear Login input fields function
 const clearLoginInputs = function () {
-	inputLoginUsername.value = "";
-	inputLoginPin.value = "";
+	loginUsername.value = "";
+	loginPin.value = "";
 };
 
 //! Display incorrect error message
@@ -62,6 +73,13 @@ const displayIncorrectLoginError = function () {
 	login__details__incorrect.classList.remove("hidden");
 	setTimeout(() => {
 		login__details__incorrect.classList.add("hidden");
+	}, "3000");
+};
+
+const displayIncorrectSignUpError = function () {
+	signUp__details__incorrect.classList.remove("hidden");
+	setTimeout(() => {
+		signUp__details__incorrect.classList.add("hidden");
 	}, "3000");
 };
 
@@ -85,6 +103,5 @@ mainPageLink.addEventListener("click", function (e) {
 signUp.addEventListener("click", function (e) {
 	e.preventDefault();
 	console.log("sign");
-	// displayLogInWindow.classList.toggle("hidden");
-	// displaySignUpWindow.classList.toggle("hidden");
+	displayIncorrectSignUpError();
 });

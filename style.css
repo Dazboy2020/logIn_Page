@@ -48,7 +48,7 @@ body {
 .container {
 	/* position: absolute; */
 	min-width: 40rem;
-	min-height: 40rem;
+	min-height: 42rem;
 	padding: 5rem;
 	background: #bdc3c7; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
@@ -100,7 +100,7 @@ body {
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
-	border: black solid 1px;
+	border: black solid 2px;
 	cursor: pointer;
 }
 
@@ -129,7 +129,7 @@ margin-top: 2rem;
 .container2 {
 	/* position: relative; */
 	min-width: 40rem;
-	min-height: 40rem;
+	min-height: 42rem;
 	padding: 5rem;
 	background: #bdc3c7; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
@@ -170,13 +170,22 @@ margin-top: 2rem;
 
 .MainPage__btn {
 	cursor: pointer;
-	margin-top: 1.5rem;
+	margin-top: 1rem;
 	font-size: 1.5rem;
 	border: none;
 	background: none;
 }
 
 .error__message {
+	font-size: 1.7rem;
+	font-weight: 500;
+	justify-content: center;
+	text-align: center;
+	color: #f7022b;
+}
+
+.error__message__signUp {
+	margin-top: 0.5rem;
 	font-size: 1.7rem;
 	font-weight: 500;
 	justify-content: center;
