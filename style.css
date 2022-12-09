@@ -79,11 +79,12 @@ body {
 .password__input {
 	font-size: 1.5rem;
 	padding: 1rem;
-	margin-bottom: 0.8rem;
+	margin-bottom: 1.5rem;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
 	border: black solid 2px;
+	box-shadow: 0.8rem 0.8rem 0px #706e6e;
 }
 /* 
 .username__input:hover,
@@ -96,12 +97,13 @@ body {
 	/* display: flex; */
 	font-size: 1.5rem;
 	padding: 1rem;
-	margin-bottom: 0.8rem;
+	margin-bottom: 1.5rem;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
 	border: black solid 2px;
 	cursor: pointer;
+	box-shadow: 0.8rem 0.8rem 0px #706e6e;
 }
 
 .submit__btn {
@@ -160,11 +162,16 @@ margin-top: 2rem;
 	display: flex;
 	font-size: 1.5rem;
 	padding: 1rem;
-	margin-bottom: 0.8rem;
+	margin-bottom: 1.5rem;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
 	border: black solid 1px;
+	/* cursor: pointer; */
+	box-shadow: 0.8rem 0.8rem 0px #706e6e;
+}
+
+.signup__btn:hover {
 	cursor: pointer;
 }
 
@@ -177,7 +184,7 @@ margin-top: 2rem;
 }
 
 .error__message {
-	font-size: 1.7rem;
+	font-size: 1.8rem;
 	font-weight: 500;
 	justify-content: center;
 	text-align: center;
@@ -186,7 +193,7 @@ margin-top: 2rem;
 
 .error__message__signUp {
 	margin-top: 0.5rem;
-	font-size: 1.7rem;
+	font-size: 1.8rem;
 	font-weight: 500;
 	justify-content: center;
 	text-align: center;
