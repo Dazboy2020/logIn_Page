@@ -48,7 +48,7 @@ body {
 .container {
 	/* position: absolute; */
 	min-width: 40rem;
-	min-height: 42rem;
+	min-height: 45rem;
 	padding: 5rem;
 	background: #bdc3c7; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
@@ -114,12 +114,12 @@ body {
 .password__confirm__input {
 	margin-top: 2rem;
 }
-margin-top: 2rem;
 
-.submit__btn:hover,
-.create__btn:hover {
+.submit__btn:active,
+.create__btn:active {
 	transform: scale(0.98);
-	transition: all 0.2s;
+	transition: all 0.1s;
+	box-shadow: 0.2rem 0.2rem 0 #706e6e;
 }
 
 .hidden {
@@ -131,7 +131,7 @@ margin-top: 2rem;
 .container2 {
 	/* position: relative; */
 	min-width: 40rem;
-	min-height: 42rem;
+	min-height: 45rem;
 	padding: 5rem;
 	background: #bdc3c7; /* fallback for old browsers */
 	background: -webkit-linear-gradient(
@@ -173,6 +173,12 @@ margin-top: 2rem;
 
 .signup__btn:hover {
 	cursor: pointer;
+}
+
+.signup__btn:active {
+	transform: scale(0.98);
+	transition: all 0.1s;
+	box-shadow: 0.2rem 0.2rem 0 #706e6e;
 }
 
 .MainPage__btn {
