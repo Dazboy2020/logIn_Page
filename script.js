@@ -11,7 +11,7 @@ const accounts = [account1];
 
 //! LOG-IN
 const loginUsername = document.querySelector(".username__input");
-const loginPassword = document.querySelector(".password__input");
+const loginPin = document.querySelector(".password__input");
 
 //!DISPLAY WINDOWS (SIGN_UP & CREATE ACCOUNT)
 const displaySignUpWindow = document.querySelector(".container2");
@@ -23,6 +23,13 @@ const mainApplication = document.querySelector(".MainApp");
 const enterUsername = document.querySelector(".username__signup__input");
 const enterPassword = document.querySelector(".password__signup__input");
 const confirmPassword = document.querySelector(".password__confirm__input");
+
+//! ERROR MESSAGES
+const login__details__incorrect = document.querySelector(".error__message");
+
+const signUp__details__incorrect = document.querySelector(
+	".error__message__signUp"
+);
 
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
@@ -47,7 +54,7 @@ btnLogin.addEventListener("click", function (e) {
 		(acc) => acc.owner === loginUsername.value
 	);
 
-	if (currentAccount?.pin === +loginPassword.value) {
+	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
 	} else {
 		clearLoginInputs();
@@ -55,7 +62,13 @@ btnLogin.addEventListener("click", function (e) {
 	}
 });
 
-//! Display incorrect error message #########
+//!Clear Login input fields function
+const clearLoginInputs = function () {
+	loginUsername.value = "";
+	loginPin.value = "";
+};
+
+//! Display incorrect error message
 const displayIncorrectLoginError = function () {
 	login__details__incorrect.classList.remove("hidden");
 	setTimeout(() => {
@@ -69,19 +82,6 @@ const displayIncorrectSignUpError = function () {
 		signUp__details__incorrect.classList.add("hidden");
 	}, "3000");
 };
-
-//!CLEAR LOG-IN INPUT FIELDS
-const clearLoginInputs = function () {
-	loginUsername.value = "";
-	loginPassword.value = "";
-};
-
-//! ERROR MESSAGES
-const login__details__incorrect = document.querySelector(".error__message");
-
-const signUp__details__incorrect = document.querySelector(
-	".error__message__signUp"
-);
 
 //! Create Button Event Handler
 btnCreate.addEventListener("click", function (e) {
