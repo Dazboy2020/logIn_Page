@@ -36,6 +36,7 @@ const btnLogin = document.querySelector(".submit__btn");
 const btnCreate = document.querySelector(".create__btn");
 const mainPageLink = document.querySelector(".MainPage__btn");
 const signUp = document.querySelector(".signup__btn");
+const btnlogOut = document.querySelector(".logOut__btn");
 
 //! NAVBAR ELEMENTS
 const labelWelcome = document.querySelector(".welcomeMessage");
@@ -81,6 +82,14 @@ btnLogin.addEventListener("click", function (e) {
 		clearLoginInputs();
 		displayIncorrectLoginError();
 	}
+});
+
+//! LOG OUT function
+btnlogOut.addEventListener("click", function (e) {
+	e.preventDefault();
+	mainApplication.classList.add("hidden");
+	clearLoginInputs();
+	displayLogInWindow.classList.remove("hidden");
 });
 
 //!Clear Login input fields function
