@@ -129,6 +129,11 @@ const createNewUser = function () {
 		clearSignUpInputs();
 		displayIncorrectSignUpError();
 	} else {
+		accounts.push({
+			owner: newUserUsername,
+			pin: newUserPassword,
+		});
 		successfulLogin();
+		console.log(newUserUsername, newUserPassword);
 	}
 };
