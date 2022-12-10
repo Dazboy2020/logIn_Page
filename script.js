@@ -1,11 +1,11 @@
 "use strict";
 
 const account1 = {
-	owner: "darren",
+	owner: "daz",
 	pin: 1974,
 };
 
-const accounts = [account1];
+let accounts = [account1];
 
 //!  ##### ELEMENTS #####
 
@@ -37,6 +37,10 @@ const btnCreate = document.querySelector(".create__btn");
 const mainPageLink = document.querySelector(".MainPage__btn");
 const signUp = document.querySelector(".signup__btn");
 
+//! NAVBAR ELEMENTS
+const labelWelcome = document.querySelector(".welcomeMessage");
+const labelDate = document.querySelector(".date");
+
 //!!  ########### FUNCTIONS #############
 
 //! Hide logIn & Create User Windows
@@ -44,6 +48,21 @@ const successfulLogin = function () {
 	displayLogInWindow.classList.add("hidden");
 	displaySignUpWindow.classList.add("hidden");
 	mainApplication.classList.remove("hidden");
+};
+
+//! DISPLAY TIME FUNCTION
+const showTime = () => {
+	setInterval(() => {
+		const now = new Date();
+		const options = {
+			weekday: "long",
+			hour: "2-digit",
+			minute: "2-digit",
+			second: "2-digit",
+		};
+		const intl = new Intl.DateTimeFormat("en-US", options).format(now);
+		labelDate.textContent = intl;
+	}, 1000);
 };
 
 //! LOG_IN function
@@ -56,6 +75,8 @@ btnLogin.addEventListener("click", function (e) {
 
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
+		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
+		showTime();
 	} else {
 		clearLoginInputs();
 		displayIncorrectLoginError();
@@ -123,7 +144,7 @@ const createNewUser = function () {
 		!newUserUsername ||
 		!newUserPassword ||
 		!newUserConfirmPassword ||
-		newUserPassword.length < 8 ||
+		newUserPassword.length < 2 ||
 		newUserPassword != newUserConfirmPassword
 	) {
 		clearSignUpInputs();
@@ -133,7 +154,8 @@ const createNewUser = function () {
 			owner: newUserUsername,
 			pin: newUserPassword,
 		});
+		labelWelcome.textContent = `Welcome, ${newUserUsername}.`;
 		successfulLogin();
-		console.log(newUserUsername, newUserPassword);
+		showTime();
 	}
 };

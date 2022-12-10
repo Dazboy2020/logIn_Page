@@ -30,11 +30,19 @@ body {
 }
 
 .MainApp {
-	display: flex;
+	/* display: flex; */
 	min-height: 55rem;
 	min-width: 90rem;
-	padding: 5rem;
+	padding: 2rem;
 	background-color: whitesmoke;
+}
+
+.navBar {
+	display: flex;
+	font-size: 1.2rem;
+	font-weight: 600;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .welcome {
@@ -207,3 +215,9 @@ body {
 	text-align: center;
 	color: #f7022b;
 }
+
+/* 
+.welcomeMessage {
+	display: flex;
+	justify-content: space-between;
+} */
