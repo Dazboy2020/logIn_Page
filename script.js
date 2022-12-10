@@ -68,6 +68,13 @@ const clearLoginInputs = function () {
 	loginPin.value = "";
 };
 
+//!Clear Sign-Up fields function
+const clearSignUpInputs = function () {
+	enterUsername.value = "";
+	enterPassword.value = "";
+	confirmPassword.value = "";
+};
+
 //! Display incorrect error message
 const displayIncorrectLoginError = function () {
 	login__details__incorrect.classList.remove("hidden");
@@ -103,5 +110,24 @@ mainPageLink.addEventListener("click", function (e) {
 signUp.addEventListener("click", function (e) {
 	e.preventDefault();
 	console.log("sign");
-	displayIncorrectSignUpError();
+	// displayIncorrectSignUpError();
+	createNewUser();
 });
+
+const createNewUser = function () {
+	const newUserUsername = enterUsername.value.trim();
+	const newUserPassword = enterPassword.value.trim();
+	const newUserConfirmPassword = confirmPassword.value.trim();
+
+	if (
+		!newUserUsername ||
+		!newUserPassword ||
+		!newUserConfirmPassword ||
+		newUserPassword != newUserConfirmPassword
+	) {
+		clearSignUpInputs();
+		displayIncorrectSignUpError();
+	} else {
+		successfulLogin();
+	}
+};

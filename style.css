@@ -55,9 +55,9 @@ body {
 		to right,
 		#FFFAFO,
 		#ffffff */
-	); Chrome 10-25, Safari 5.1-6
+	/* ); Chrome 10-25, Safari 5.1-6 */
 
-	border: black solid 1px;
+	border: black solid 3px;
 	border-radius: 10px;
 	border-style: outset;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -141,7 +141,7 @@ body {
 		#ffffff
 	); Chrome 10-25, Safari 5.1-6 */
 
-	border: black solid 2px;
+	border: black solid 5px;
 	border-radius: 10px;
 	border-style: outset;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
