@@ -123,6 +123,7 @@ const createNewUser = function () {
 		!newUserUsername ||
 		!newUserPassword ||
 		!newUserConfirmPassword ||
+		newUserPassword.length < 8 ||
 		newUserPassword != newUserConfirmPassword
 	) {
 		clearSignUpInputs();
