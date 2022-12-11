@@ -104,6 +104,9 @@ btnLogin.addEventListener("click", function (e) {
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
+		displayMovements(currentAccount.movements);
+		calcDisplayBalance(currentAccount.movements);
+		calcDisplaySummary(currentAccount.movements);
 		showTime();
 	} else {
 		clearLoginInputs();
@@ -245,15 +248,13 @@ const displayMovements = function (movements) {
 	});
 };
 
-displayMovements(account1.movements);
-
 const calcDisplayBalance = function (movements) {
 	const balance = movements.reduce((acc, mov) => acc + mov, 0);
 
 	labelBalanceEUR.textContent = `${balance} €`;
 };
 
-calcDisplayBalance(account1.movements);
+// calcDisplayBalance(account1.movements);
 
 const calcDisplaySummary = function (movements) {
 	const incomes = movements
@@ -273,4 +274,4 @@ const calcDisplaySummary = function (movements) {
 	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} €`;
 };
 
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
