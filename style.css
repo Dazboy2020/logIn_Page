@@ -29,10 +29,11 @@ body {
 	justify-content: center;
 }
 
+/* !MAIN APP WINDOW */
 .MainApp {
 	/* display: flex; */
 	min-height: 55rem;
-	min-width: 90rem;
+	min-width: 80rem;
 	padding: 2rem;
 	background-color: whitesmoke;
 	border: solid black 3px;
@@ -41,6 +42,7 @@ body {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
+/* !Nav Bar */
 .navBar {
 	display: flex;
 	font-size: 1.2rem;
@@ -57,7 +59,60 @@ body {
 	padding: 0.5rem;
 	border-radius: 0.3rem;
 	cursor: pointer;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
+
+.logOut__btn:hover {
+	background-color: #e8a058;
+}
+
+/* !Exchange Bar */
+.exchange__bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1rem;
+	font-size: 1.5rem;
+	padding: 1rem;
+}
+
+.balance {
+	font-size: 1.7rem;
+	font-weight: 600;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
+}
+
+.balance__value--USD,
+.balance__value--EUR {
+	padding: 0.5rem;
+}
+
+/* 
+.USD {
+	font-size: 1.5rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 2rem;
+	padding-right: 15rem;
+	border: solid black 2px;
+	border-radius: 1rem;
+	background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.BTC {
+	font-size: 1.5rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 15rem;
+	padding-right: 2rem;
+	border: solid black 2px;
+	border-radius: 1rem;
+	background-image: linear-gradient(to top left, #e52a5a, #f66d74);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+} */
 
 .welcome {
 	display: flex;
