@@ -89,6 +89,7 @@ btnlogOut.addEventListener("click", function (e) {
 	e.preventDefault();
 	mainApplication.classList.add("hidden");
 	clearLoginInputs();
+	clearSignUpInputs();
 	displayLogInWindow.classList.remove("hidden");
 });
 
@@ -153,7 +154,7 @@ const createNewUser = function () {
 		!newUserUsername ||
 		!newUserPassword ||
 		!newUserConfirmPassword ||
-		newUserPassword.length < 2 ||
+		newUserPassword.length < 8 ||
 		newUserPassword != newUserConfirmPassword
 	) {
 		clearSignUpInputs();
@@ -164,6 +165,7 @@ const createNewUser = function () {
 			pin: newUserPassword,
 		});
 		labelWelcome.textContent = `Welcome, ${newUserUsername}.`;
+
 		successfulLogin();
 		showTime();
 	}
