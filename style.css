@@ -66,14 +66,15 @@ body {
 	background-color: #e8a058;
 }
 
-/* !Exchange Bar */
-.exchange__bar {
+.main__container__window {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	margin-top: 1rem;
-	font-size: 1.5rem;
-	padding: 1rem;
+}
+
+.transfer__panel__section {
+	display: flex;
+	flex-direction: column;
+	margin-left: 5rem;
 }
 
 .balance {
@@ -82,11 +83,97 @@ body {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 .balance__value--USD,
 .balance__value--EUR {
 	padding: 0.5rem;
+}
+
+/* MOVEMENTS */
+.movements {
+	grid-row: 2 / span 3;
+	background-color: #fff;
+	border-radius: 1rem;
+	overflow: scroll;
+	min-width: 50rem;
+}
+
+.movements__row {
+	padding: 2.25rem 4rem;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #eee;
+}
+
+.movements__type {
+	font-size: 1.1rem;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: #fff;
+	padding: 0.1rem 1rem;
+	border-radius: 10rem;
+	margin-right: 2rem;
+}
+
+.movements__date {
+	font-size: 1.1rem;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: #666;
+}
+
+.movements__type--deposit {
+	background-image: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.movements__type--withdrawal {
+	background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+}
+
+.movements__value {
+	font-size: 1.7rem;
+	margin-left: auto;
+}
+
+/* OPERATIONS */
+.operation {
+	border-radius: 1rem;
+	padding: 3rem 4rem;
+	color: #333;
+}
+
+.operation--transfer {
+	background-image: linear-gradient(to top left, #ffb003, #ffcb03);
+	margin: 1rem;
+	border: solid black 1px;
+}
+
+.operation--loan {
+	background-image: linear-gradient(to top left, #39b385, #9be15d);
+	margin: 1rem;
+	border: solid black 1px;
+}
+
+.operation--close {
+	background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+	margin: 1rem;
+	border: solid black 1px;
+}
+
+h2 {
+	margin-bottom: 1.5rem;
+	font-size: 1.7rem;
+	font-weight: 600;
+	color: #333;
+}
+
+.form {
+	display: grid;
+	grid-template-columns: 2.5fr 2.5fr 1fr;
+	grid-template-rows: auto auto;
+	gap: 0.4rem 1rem;
 }
 
 /* 

@@ -54,6 +54,7 @@
 				<button class="logOut__btn" type="submit">Log out &rarr;  </button>
 			</nav>
 
+			<!-- ?BALANCE -->
 			<div class="balance">
 				<p class= "balance__label">Current Balance</p>
 				<div class="balance__value">
@@ -61,14 +62,68 @@
 					<p class="balance__value--EUR">1000 EUR</p>
 				</div>
 			</div>
-<!-- 
-			<div class="exchange__bar" >
-				<p class="USD">USD</p>
-				<p class="exchange">Exchange</p>
-				<p class="BTC">BTC</p>
-			</div> -->
 
-		</div>
+			<!-- ?MOVEMENTS -->
+			<div class="main__container__window">
+
+				<div class="movements">
+					<div class="movements__row">
+					  <div class="movements__type movements__type--deposit">2 deposit</div>
+					  <div class="movements__date">3 days ago</div>
+					  <div class="movements__value">4 000€</div>
+					</div>
+					<div class="movements__row">
+					  <div class="movements__type movements__type--withdrawal">
+						1 withdrawal
+					  </div>
+					  <div class="movements__date">24/01/2037</div>
+					  <div class="movements__value">-378€</div>
+					</div>
+				</div>
+
+
+<div class="transfer__panel__section">
+
+
+      <!-- OPERATION: LOAN -->
+      <div class="operation operation--loan">
+        <h2>Request loan</h2>
+        <form class="form form--loan">
+          <input type="number" class="form__input form__input--loan-amount" />
+          <button class="form__btn form__btn--loan">&rarr;</button>
+          <label class="form__label form__label--loan">Amount</label>
+        </form>
+      </div>
+
+      <!-- OPERATION: TRANSFERS -->
+      <div class="operation operation--transfer">
+        <h2>Transfer money</h2>
+        <form class="form form--transfer">
+          <input type="text" class="form__input form__input--to" />
+          <input type="number" class="form__input form__input--amount" />
+          <button class="form__btn form__btn--transfer">&rarr;</button>
+          <label class="form__label">Transfer to</label>
+          <label class="form__label">Amount</label>
+        </form>
+      </div>
+
+      <!-- OPERATION: CLOSE -->
+      <div class="operation operation--close">
+        <h2>Close account</h2>
+        <form class="form form--close">
+          <input type="text" class="form__input form__input--user" />
+          <input
+            type="password"
+            maxlength="6"
+            class="form__input form__input--pin"
+          />
+          <button class="form__btn form__btn--close">&rarr;</button>
+          <label class="form__label">Confirm user</label>
+          <label class="form__label">Confirm PIN</label>
+        </form>
+      </div>
+
+</div>
 
 
 <!-- !SIGN_UP WINDOW HIDDEN -->
