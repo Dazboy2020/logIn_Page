@@ -62,6 +62,8 @@ const btnlogOut = document.querySelector(".logOut__btn");
 const labelWelcome = document.querySelector(".welcomeMessage");
 const labelDate = document.querySelector(".date");
 
+const containerMovements = document.querySelector(".movements");
+
 //!!  ########### FUNCTIONS #############
 
 //! Hide logIn & Create User Windows
