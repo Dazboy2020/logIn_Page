@@ -29,7 +29,11 @@ const account2 = {
 let accounts = [account1, account2];
 
 //!  ##### ELEMENTS #####
-const labelBalance = document.querySelector(".balance__value--USD");
+const labelBalanceUSD = document.querySelector(".balance__value--USD");
+const labelBalanceEUR = document.querySelector(".balance__value--EUR");
+const labelSumIn = document.querySelector(".summary__value--in");
+const labelSumOut = document.querySelector(".summary__value--out");
+const labelSumInterest = document.querySelector(".summary__value--interest");
 const containerMovements = document.querySelector(".movements");
 
 //! LOG-IN
@@ -233,7 +237,7 @@ const displayMovements = function (movements) {
 		const html = `
 	<div class="movements__row">
 			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-			<div class="movements__value">${mov}</div>
+			<div class="movements__value">${mov} €</div>
 	</div>
 	`;
 
@@ -242,3 +246,31 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = function (movements) {
+	const balance = movements.reduce((acc, mov) => acc + mov, 0);
+
+	labelBalanceEUR.textContent = `${balance} €`;
+};
+
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+	const incomes = movements
+		.filter((mov) => mov > 0)
+		.reduce((acc, mov) => acc + mov, 0);
+	labelSumIn.textContent = `${Math.abs(incomes).toFixed(2)} €`;
+
+	const out = movements
+		.filter((mov) => mov < 0)
+		.reduce((acc, mov) => acc + mov, 0);
+	labelSumOut.textContent = `${Math.abs(out).toFixed(2)} €`;
+
+	const interest = movements
+		.filter((mov) => mov > 0)
+		.map((deposit) => (deposit * 1.2) / 100)
+		.reduce((acc, int) => acc + int, 0);
+	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} €`;
+};
+
+calcDisplaySummary(account1.movements);
