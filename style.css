@@ -32,7 +32,7 @@ body {
 /* !MAIN APP WINDOW */
 .MainApp {
 	/* display: flex; */
-	margin-top: 5rem;
+	margin-top: 1rem;
 	margin-left: 10rem;
 	margin-right: 10rem;
 	min-height: 55rem;
@@ -72,6 +72,8 @@ body {
 .main__container__window {
 	display: flex;
 	justify-content: space-between;
+	/* margin-left: 5rem;
+	margin-right: 5rem; */
 }
 
 .transfer__panel__section {
@@ -111,6 +113,7 @@ body {
 	border-radius: 1rem;
 	overflow: auto;
 	min-width: 60rem;
+	margin-left: 1rem;
 	border: solid black 1px;
 }
 
@@ -370,4 +373,47 @@ h2 {
 	justify-content: center;
 	text-align: center;
 	color: #f7022b;
+}
+
+/* SUMMARY */
+.summary {
+	grid-row: 5 / 6;
+	display: flex;
+	align-items: center;
+	padding: 0.3rem;
+	margin-top: 1rem;
+	border: solid black 1px;
+	border-radius: 1rem;
+	padding: 0.5rem;
+	/* margin-right: 31.5rem; */
+}
+
+.summary__label {
+	font-size: 1rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	margin-right: 0.8rem;
+}
+
+.summary__value {
+	font-size: 2.2rem;
+	margin-right: 2.5rem;
+}
+
+.summary__value--in,
+.summary__value--interest {
+	color: #66c873;
+}
+
+.summary__value--out {
+	color: #f5465d;
+}
+
+.btn--sort {
+	margin-left: 16rem;
+	border: none;
+	background: none;
+	font-size: 1.3rem;
+	font-weight: 500;
+	cursor: pointer;
 }

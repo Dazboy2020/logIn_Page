@@ -2,6 +2,7 @@
 
 const account1 = {
 	owner: "daz",
+	movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
 	pin: 1974,
 };
 
@@ -28,6 +29,8 @@ const account2 = {
 let accounts = [account1, account2];
 
 //!  ##### ELEMENTS #####
+const labelBalance = document.querySelector(".balance__value--USD");
+const containerMovements = document.querySelector(".movements");
 
 //! LOG-IN
 const loginUsername = document.querySelector(".username__input");
@@ -62,8 +65,6 @@ const btnlogOut = document.querySelector(".logOut__btn");
 const labelWelcome = document.querySelector(".welcomeMessage");
 const labelDate = document.querySelector(".date");
 
-const containerMovements = document.querySelector(".movements");
-
 //!!  ########### FUNCTIONS #############
 
 //! Hide logIn & Create User Windows
@@ -88,13 +89,13 @@ const showTime = () => {
 	}, 1000);
 };
 
+let currentAccount;
+
 //! LOG_IN function
 btnLogin.addEventListener("click", function (e) {
 	e.preventDefault();
 
-	let currentAccount = accounts.find(
-		(acc) => acc.owner === loginUsername.value
-	);
+	currentAccount = accounts.find((acc) => acc.owner === loginUsername.value);
 
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
@@ -192,3 +193,52 @@ const createNewUser = function () {
 		showTime();
 	}
 };
+
+//! ### DATE  Function#####
+
+const formatMovementDate = function (date, locale) {
+	const calcDaysPassed = (date1, date2) =>
+		Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+	const daysPassed = calcDaysPassed(new Date(), date);
+	// console.log(daysPassed);
+
+	if (daysPassed === 0) return "Today";
+	if (daysPassed === 1) return "Yesterday";
+	if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+	return new Intl.DateTimeFormat(locale).format(date);
+	// const day = `${date.getDate()}`.padStart(2, '0');
+	// const month = `${date.getMonth() + 1}`.padStart(2, 0);
+	// const year = date.getFullYear();
+
+	// return `${day}/${month}/${year}`;
+};
+
+const formatCur = function (value, locale, currency) {
+	return new Intl.NumberFormat(locale, {
+		style: "currency",
+		currency: currency,
+	}).format(value);
+};
+
+//! ########### DISPLAY MOVEMENTS ##########
+
+//? Event handlers
+const displayMovements = function (movements) {
+	containerMovements.innerHTML = "";
+	movements.forEach(function (mov, i) {
+		const type = mov > 0 ? "deposit" : "withdrawal";
+
+		const html = `
+	<div class="movements__row">
+			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+			<div class="movements__value">${mov}</div>
+	</div>
+	`;
+
+		containerMovements.insertAdjacentHTML("afterbegin", html);
+	});
+};
+
+displayMovements(account1.movements);
