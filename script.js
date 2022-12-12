@@ -3,6 +3,7 @@
 const account1 = {
 	owner: "daz",
 	movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+	movementsUSD: [20, 1000, -250, 2500, -350.21, 1300],
 	pin: 1974,
 	interestRate: 1.2,
 };
@@ -239,9 +240,6 @@ const createNewUser = function () {
 
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
 		successfulLogin();
-		// displayMovements(currentAccount.movements);
-		// calcDisplayBalance(currentAccount);
-		// calcDisplaySummary(currentAccount);
 		updateUI(currentAccount);
 		showTime();
 	}
