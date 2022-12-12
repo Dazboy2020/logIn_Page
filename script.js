@@ -184,7 +184,7 @@ const createNewUser = function () {
 		!newUserUsername ||
 		!newUserPassword ||
 		!newUserConfirmPassword ||
-		newUserPassword.length < 8 ||
+		newUserPassword.length < 2 ||
 		newUserPassword != newUserConfirmPassword
 	) {
 		clearSignUpInputs();
@@ -193,10 +193,17 @@ const createNewUser = function () {
 		accounts.push({
 			owner: newUserUsername,
 			pin: newUserPassword,
+			movements: [],
+			interestRate: 1.2,
 		});
-		labelWelcome.textContent = `Welcome, ${newUserUsername}.`;
 
+		currentAccount = accounts[accounts.length - 1];
+
+		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
 		successfulLogin();
+		displayMovements(currentAccount.movements);
+		calcDisplayBalance(currentAccount.movements);
+		calcDisplaySummary(currentAccount.movements);
 		showTime();
 	}
 };
