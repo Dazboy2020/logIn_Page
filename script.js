@@ -4,6 +4,7 @@ const account1 = {
 	owner: "daz",
 	movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
 	pin: 1974,
+	interestRate: 1.2,
 };
 
 const account2 = {
@@ -106,7 +107,7 @@ btnLogin.addEventListener("click", function (e) {
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
 		displayMovements(currentAccount.movements);
 		calcDisplayBalance(currentAccount.movements);
-		calcDisplaySummary(currentAccount.movements);
+		calcDisplaySummary(currentAccount);
 		showTime();
 	} else {
 		clearLoginInputs();
@@ -155,6 +156,7 @@ const displayIncorrectSignUpError = function () {
 btnCreate.addEventListener("click", function (e) {
 	e.preventDefault();
 	console.log("create");
+	clearSignUpInputs();
 	displayLogInWindow.classList.toggle("hidden");
 	displaySignUpWindow.classList.toggle("hidden");
 });
@@ -165,6 +167,7 @@ mainPageLink.addEventListener("click", function (e) {
 	console.log("main");
 	displayLogInWindow.classList.toggle("hidden");
 	displaySignUpWindow.classList.toggle("hidden");
+	clearSignUpInputs();
 });
 
 //! SIgn Up Button Event Handler
@@ -203,7 +206,7 @@ const createNewUser = function () {
 		successfulLogin();
 		displayMovements(currentAccount.movements);
 		calcDisplayBalance(currentAccount.movements);
-		calcDisplaySummary(currentAccount.movements);
+		calcDisplaySummary(currentAccount);
 		showTime();
 	}
 };
@@ -263,20 +266,20 @@ const calcDisplayBalance = function (movements) {
 
 // calcDisplayBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-	const incomes = movements
+const calcDisplaySummary = function (acc) {
+	const incomes = acc.movements
 		.filter((mov) => mov > 0)
 		.reduce((acc, mov) => acc + mov, 0);
 	labelSumIn.textContent = `${Math.abs(incomes).toFixed(2)} €`;
 
-	const out = movements
+	const out = acc.movements
 		.filter((mov) => mov < 0)
 		.reduce((acc, mov) => acc + mov, 0);
 	labelSumOut.textContent = `${Math.abs(out).toFixed(2)} €`;
 
-	const interest = movements
+	const interest = acc.movements
 		.filter((mov) => mov > 0)
-		.map((deposit) => (deposit * 1.2) / 100)
+		.map((deposit) => (deposit * acc.interestRate) / 100)
 		.reduce((acc, int) => acc + int, 0);
 	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} €`;
 };
