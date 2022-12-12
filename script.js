@@ -348,7 +348,7 @@ btnTransfer.addEventListener("click", function (e) {
 		) {
 			currentAccount.movementsUSD.push(-amount);
 			receiverAcc.movementsUSD.push(amount);
-			updateUI(currentAccount);
+			updateUI__USD(currentAccount);
 		}
 	}
 });
