@@ -27,7 +27,27 @@ const account2 = {
 	locale: "en-US",
 };
 
-let accounts = [account1, account2];
+const account3 = {
+	owner: "js",
+	movements: [20, 650, -55, 250, -855, 1300],
+	interestRate: 1.2, // %
+	pin: 1111,
+
+	movementsDates: [
+		"2019-11-18T21:31:17.178Z",
+		"2019-12-23T07:42:02.383Z",
+		"2020-01-28T09:15:04.904Z",
+		"2020-04-01T10:17:24.185Z",
+		"2022-11-30T14:11:59.604Z",
+		"2022-12-01T17:01:17.194Z",
+		"2022-12-02T23:36:17.929Z",
+		"2022-12-06T10:51:36.790Z",
+	],
+	currency: "EUR",
+	locale: "pt-PT", // de-DE
+};
+
+let accounts = [account1, account2, account3];
 
 //!  ##### ELEMENTS #####
 const labelBalanceUSD = document.querySelector(".balance__value--USD");
@@ -59,12 +79,18 @@ const signUp__details__incorrect = document.querySelector(
 	".error__message__signUp"
 );
 
+//! TRANSFER & EXCHANGE PANEL
+const inputTransferTo = document.querySelector(".form__input--to");
+const inputTransferAmount = document.querySelector(".form__input--amount");
+
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
 const btnCreate = document.querySelector(".create__btn");
 const mainPageLink = document.querySelector(".MainPage__btn");
 const signUp = document.querySelector(".signup__btn");
 const btnlogOut = document.querySelector(".logOut__btn");
+const btnLoan = document.querySelector(".form__btn--loan");
+const btnTransfer = document.querySelector(".form__btn--transfer");
 
 //! NAVBAR ELEMENTS
 const labelWelcome = document.querySelector(".welcomeMessage");
@@ -94,7 +120,15 @@ const showTime = () => {
 	}, 1000);
 };
 
+//! (acc) is shorthand for currentAccount
+
 let currentAccount;
+
+const updateUI = function (acc) {
+	displayMovements(acc.movements);
+	calcDisplayBalance(acc);
+	calcDisplaySummary(acc);
+};
 
 //! LOG_IN function
 btnLogin.addEventListener("click", function (e) {
@@ -105,9 +139,10 @@ btnLogin.addEventListener("click", function (e) {
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
-		displayMovements(currentAccount.movements);
-		calcDisplayBalance(currentAccount.movements);
-		calcDisplaySummary(currentAccount);
+		// displayMovements(currentAccount.movements);
+		// calcDisplayBalance(currentAccount);
+		// calcDisplaySummary(currentAccount);
+		updateUI(currentAccount);
 		showTime();
 	} else {
 		clearLoginInputs();
@@ -204,9 +239,10 @@ const createNewUser = function () {
 
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
 		successfulLogin();
-		displayMovements(currentAccount.movements);
-		calcDisplayBalance(currentAccount.movements);
-		calcDisplaySummary(currentAccount);
+		// displayMovements(currentAccount.movements);
+		// calcDisplayBalance(currentAccount);
+		// calcDisplaySummary(currentAccount);
+		updateUI(currentAccount);
 		showTime();
 	}
 };
@@ -218,7 +254,6 @@ const formatMovementDate = function (date, locale) {
 		Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
 	const daysPassed = calcDaysPassed(new Date(), date);
-	// console.log(daysPassed);
 
 	if (daysPassed === 0) return "Today";
 	if (daysPassed === 1) return "Yesterday";
@@ -258,13 +293,11 @@ const displayMovements = function (movements) {
 	});
 };
 
-const calcDisplayBalance = function (movements) {
-	const balance = movements.reduce((acc, mov) => acc + mov, 0);
+const calcDisplayBalance = function (acc) {
+	acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
 
-	labelBalanceEUR.textContent = `${balance} €`;
+	labelBalanceEUR.textContent = `${acc.balance} €`;
 };
-
-// calcDisplayBalance(account1.movements);
 
 const calcDisplaySummary = function (acc) {
 	const incomes = acc.movements
@@ -284,4 +317,21 @@ const calcDisplaySummary = function (acc) {
 	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} €`;
 };
 
-// calcDisplaySummary(account1.movements);
+btnTransfer.addEventListener("click", function (e) {
+	e.preventDefault();
+	const amount = Number(inputTransferAmount.value);
+	const receiverAcc = accounts.find(
+		(acc) => acc.owner === inputTransferTo.value
+	);
+
+	if (
+		amount > 0 &&
+		receiverAcc &&
+		currentAccount.balance >= amount &&
+		receiverAcc?.owner !== currentAccount.owner
+	) {
+		currentAccount.movements.push(-amount);
+		receiverAcc.movements.push(amount);
+		updateUI(currentAccount);
+	}
+});
