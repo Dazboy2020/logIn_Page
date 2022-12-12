@@ -92,6 +92,7 @@ const signUp = document.querySelector(".signup__btn");
 const btnlogOut = document.querySelector(".logOut__btn");
 const btnLoan = document.querySelector(".form__btn--loan");
 const btnTransfer = document.querySelector(".form__btn--transfer");
+const btnSwitchCurrency = document.querySelector(".switch__btn");
 
 //! NAVBAR ELEMENTS
 const labelWelcome = document.querySelector(".welcomeMessage");
@@ -144,6 +145,7 @@ btnLogin.addEventListener("click", function (e) {
 		// calcDisplayBalance(currentAccount);
 		// calcDisplaySummary(currentAccount);
 		updateUI(currentAccount);
+		calcDisplayBalanceUSD(currentAccount);
 		showTime();
 	} else {
 		clearLoginInputs();
@@ -333,3 +335,55 @@ btnTransfer.addEventListener("click", function (e) {
 		updateUI(currentAccount);
 	}
 });
+
+//! ################# USD ACCOUNT ############
+btnSwitchCurrency.addEventListener("click", function (e) {
+	e.preventDefault();
+	updateUI__USD(currentAccount);
+});
+
+const displayMovementsUSD = function (movements) {
+	containerMovements.innerHTML = "";
+	movements.forEach(function (mov, i) {
+		const type = mov > 0 ? "deposit" : "withdrawal";
+
+		const html = `
+	<div class="movements__row">
+			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+			<div class="movements__value">${mov} $</div>
+	</div>
+	`;
+
+		containerMovements.insertAdjacentHTML("afterbegin", html);
+	});
+};
+
+const calcDisplayBalanceUSD = function (acc) {
+	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
+
+	labelBalanceUSD.textContent = `${acc.balance} $`;
+};
+
+const calcDisplaySummaryUSD = function (acc) {
+	const incomes = acc.movementsUSD
+		.filter((mov) => mov > 0)
+		.reduce((acc, mov) => acc + mov, 0);
+	labelSumIn.textContent = `${Math.abs(incomes).toFixed(2)} $`;
+
+	const out = acc.movementsUSD
+		.filter((mov) => mov < 0)
+		.reduce((acc, mov) => acc + mov, 0);
+	labelSumOut.textContent = `${Math.abs(out).toFixed(2)} $`;
+
+	const interest = acc.movementsUSD
+		.filter((mov) => mov > 0)
+		.map((deposit) => (deposit * acc.interestRate) / 100)
+		.reduce((acc, int) => acc + int, 0);
+	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} $`;
+};
+
+const updateUI__USD = function (acc) {
+	displayMovementsUSD(acc.movementsUSD);
+	calcDisplayBalanceUSD(acc);
+	calcDisplaySummaryUSD(acc);
+};
