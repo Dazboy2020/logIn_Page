@@ -179,6 +179,11 @@ const clearSignUpInputs = function () {
 	confirmPassword.value = "";
 };
 
+const clearTransferInputs = function () {
+	inputTransferTo.value = "";
+	inputTransferAmount.value = "";
+};
+
 //! Display incorrect error message
 const displayIncorrectLoginError = function () {
 	login__details__incorrect.classList.remove("hidden");
@@ -278,7 +283,7 @@ const formatCur = function (value, locale, currency) {
 	}).format(value);
 };
 
-//! ########### DISPLAY MOVEMENTS ##########
+//! ########### EUR ACCOUNT ##########
 
 //? Event handlers
 const displayMovements = function (movements) {
@@ -300,7 +305,7 @@ const displayMovements = function (movements) {
 const calcDisplayBalance = function (acc) {
 	acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
 
-	labelBalanceEUR.textContent = `${acc.balance} €`;
+	labelBalanceEUR.textContent = `${Math.abs(acc.balance).toFixed(2)} €`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -338,6 +343,7 @@ btnTransfer.addEventListener("click", function (e) {
 		currentAccount.movements.push(-amount);
 		receiverAcc.movements.push(amount);
 		updateUI(currentAccount);
+		clearTransferInputs();
 	} else {
 		if (
 			amount > 0 &&
@@ -349,6 +355,7 @@ btnTransfer.addEventListener("click", function (e) {
 			currentAccount.movementsUSD.push(-amount);
 			receiverAcc.movementsUSD.push(amount);
 			updateUI__USD(currentAccount);
+			clearTransferInputs();
 		}
 	}
 });
@@ -380,7 +387,7 @@ const displayMovementsUSD = function (movements) {
 const calcDisplayBalanceUSD = function (acc) {
 	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
 
-	labelBalanceUSD.textContent = `${acc.balance} $`;
+	labelBalanceUSD.textContent = `${Math.abs(acc.balance).toFixed(2)} $`;
 };
 
 const calcDisplaySummaryUSD = function (acc) {
