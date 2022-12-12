@@ -111,10 +111,11 @@ body {
 	grid-row: 2 / span 3;
 	background-color: #fff;
 	border-radius: 1rem;
-	overflow: auto;
+	overflow-y: auto;
 	min-width: 60rem;
 	margin-left: 1rem;
 	border: solid black 1px;
+	/* overflow: scroll; */
 }
 
 .movements__row {
