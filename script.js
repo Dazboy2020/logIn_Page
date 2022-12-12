@@ -11,6 +11,7 @@ const account1 = {
 const account2 = {
 	owner: "jd",
 	movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+	movementsUSD: [750, 2000, -1250, 2575, -950, 3000],
 	interestRate: 1.5,
 	pin: 2222,
 
@@ -31,6 +32,8 @@ const account2 = {
 const account3 = {
 	owner: "js",
 	movements: [20, 650, -55, 250, -855, 1300],
+	movementsUSD: [3000],
+
 	interestRate: 1.2, // %
 	pin: 1111,
 
