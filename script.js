@@ -125,6 +125,7 @@ const showTime = () => {
 //! (acc) is shorthand for currentAccount
 
 let currentAccount;
+let eurAccount = true;
 
 const updateUI = function (acc) {
 	displayMovements(acc.movements);
@@ -339,7 +340,9 @@ btnTransfer.addEventListener("click", function (e) {
 //! ################# USD ACCOUNT ############
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
-	updateUI__USD(currentAccount);
+	// updateUI__USD(currentAccount);
+	eurAccount ? updateUI__USD(currentAccount) : updateUI(currentAccount);
+	eurAccount = !eurAccount;
 });
 
 const displayMovementsUSD = function (movements) {
