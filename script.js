@@ -332,11 +332,24 @@ btnTransfer.addEventListener("click", function (e) {
 		amount > 0 &&
 		receiverAcc &&
 		currentAccount.balance >= amount &&
-		receiverAcc?.owner !== currentAccount.owner
+		receiverAcc?.owner !== currentAccount.owner &&
+		eurAccount
 	) {
 		currentAccount.movements.push(-amount);
 		receiverAcc.movements.push(amount);
 		updateUI(currentAccount);
+	} else {
+		if (
+			amount > 0 &&
+			receiverAcc &&
+			currentAccount.balance >= amount &&
+			receiverAcc?.owner !== currentAccount.owner &&
+			!eurAccount
+		) {
+			currentAccount.movementsUSD.push(-amount);
+			receiverAcc.movementsUSD.push(amount);
+			updateUI(currentAccount);
+		}
 	}
 });
 
