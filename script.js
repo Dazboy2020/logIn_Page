@@ -391,6 +391,8 @@ btnTransfer.addEventListener("click", function (e) {
 	) {
 		currentAccount.movements.push(-amount);
 		receiverAcc.movements.push(amount);
+		currentAccount.movementsDates.push(new Date());
+		receiverAcc.movementsDates.push(new Date());
 		updateUI(currentAccount);
 		clearTransferInputs();
 	} else {
@@ -403,6 +405,8 @@ btnTransfer.addEventListener("click", function (e) {
 		) {
 			currentAccount.movementsUSD.push(-amount);
 			receiverAcc.movementsUSD.push(amount);
+			currentAccount.movementsDates.push(new Date());
+			receiverAcc.movementsDates.push(new Date());
 			updateUI__USD(currentAccount);
 			clearTransferInputs();
 		}
@@ -458,7 +462,7 @@ const displayMovementsUSD = function (acc, sort = false) {
 	<div class="movements__row">
 			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
 			<div class="movements__date">${displayDate}</div>
-			<div class="movements__value">${mov.toFixed(2)} $</div>
+			<div class="movements__value">${mov} $</div>
 	</div>
 	`;
 
