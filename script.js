@@ -51,7 +51,16 @@ const account3 = {
 	locale: "pt-PT", // de-DE
 };
 
-let accounts = [account1, account2, account3];
+const account4 = {
+	owner: "dd",
+	movements: [10, 20, 30, 100, 90, 80],
+	movementsUSD: [3000, 2000, 1000, 300, 400, 500],
+
+	interestRate: 1.2, // %
+	pin: 4444,
+};
+
+let accounts = [account1, account2, account3, account4];
 
 //!  ##### ELEMENTS #####
 const labelBalanceUSD = document.querySelector(".balance__value--USD");
@@ -96,6 +105,7 @@ const btnlogOut = document.querySelector(".logOut__btn");
 const btnLoan = document.querySelector(".form__btn--loan");
 const btnTransfer = document.querySelector(".form__btn--transfer");
 const btnSwitchCurrency = document.querySelector(".switch__btn");
+const btnSort = document.querySelector(".btn--sort");
 
 //! NAVBAR ELEMENTS
 const labelWelcome = document.querySelector(".welcomeMessage");
@@ -129,6 +139,7 @@ const showTime = () => {
 
 let currentAccount;
 let eurAccount = true;
+let sorted = false;
 
 const updateUI = function (acc) {
 	displayMovements(acc.movements);
@@ -254,6 +265,7 @@ const createNewUser = function () {
 		successfulLogin();
 		updateUI__USD(currentAccount);
 		updateUI(currentAccount);
+		clearTransferInputs();
 		showTime();
 	}
 };
@@ -288,9 +300,12 @@ const formatCur = function (value, locale, currency) {
 //! ########### EUR ACCOUNT ##########
 
 //? Event handlers
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
 	containerMovements.innerHTML = "";
-	movements.forEach(function (mov, i) {
+
+	const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+	movs.forEach(function (mov, i) {
 		const type = mov > 0 ? "deposit" : "withdrawal";
 
 		const html = `
@@ -362,6 +377,18 @@ btnTransfer.addEventListener("click", function (e) {
 	}
 });
 
+btnSort.addEventListener("click", function (e) {
+	e.preventDefault();
+
+	if (eurAccount) {
+		displayMovements(currentAccount.movements, !sorted);
+	} else {
+		displayMovementsUSD(currentAccount.movementsUSD, !sorted);
+	}
+
+	sorted = !sorted;
+});
+
 //! ################# USD ACCOUNT ############
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
@@ -370,9 +397,12 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 	eurAccount = !eurAccount;
 });
 
-const displayMovementsUSD = function (movements) {
+const displayMovementsUSD = function (movements, sort = false) {
 	containerMovements.innerHTML = "";
-	movements.forEach(function (mov, i) {
+
+	const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+	movs.forEach(function (mov, i) {
 		const type = mov > 0 ? "deposit" : "withdrawal";
 
 		const html = `
@@ -411,6 +441,7 @@ const calcDisplaySummaryUSD = function (acc) {
 };
 
 const updateUI__USD = function (acc) {
+	sorted = false;
 	displayMovementsUSD(acc.movementsUSD);
 	calcDisplayBalanceUSD(acc);
 	calcDisplaySummaryUSD(acc);
