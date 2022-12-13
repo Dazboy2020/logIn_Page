@@ -425,6 +425,7 @@ btnSort.addEventListener("click", function (e, acc) {
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
 	// updateUI__USD(currentAccount);
+	console.log("click");
 	eurAccount ? updateUI__USD(currentAccount) : updateUI(currentAccount);
 	eurAccount = !eurAccount;
 });
