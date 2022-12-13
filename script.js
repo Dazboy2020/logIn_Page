@@ -426,16 +426,24 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
 	// updateUI__USD(currentAccount);
 	console.log("click");
-	eurAccount ? updateUI__USD(currentAccount) : updateUI(currentAccount);
+
+	if (eurAccount) {
+		updateUI__USD(currentAccount);
+	} else {
+		updateUI(currentAccount);
+	}
+
 	eurAccount = !eurAccount;
+
+	// eurAccount ? updateUI__USD(currentAccount) : updateUI(currentAccount);
 });
 
 const displayMovementsUSD = function (acc, sort = false) {
 	containerMovements.innerHTML = "";
 
 	const movs = sort
-		? acc.movements.slice().sort((a, b) => a - b)
-		: acc.movements;
+		? acc.movementsUSD.slice().sort((a, b) => a - b)
+		: acc.movementsUSD;
 
 	movs.forEach(function (mov, i) {
 		const type = mov > 0 ? "deposit" : "withdrawal";
