@@ -144,10 +144,13 @@ body {
 
 .movements__type--deposit {
 	background-image: linear-gradient(to top left, #39b385, #9be15d);
+	margin-right: 6rem;
+	/* min-width: 6rem; */
 }
 
 .movements__type--withdrawal {
 	background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+	margin-right: 3.5rem;
 }
 
 .movements__value {

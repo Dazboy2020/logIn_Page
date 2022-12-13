@@ -6,6 +6,16 @@ const account1 = {
 	movementsUSD: [20, 1000, -250, 2500, -350.21, 1800],
 	pin: 1974,
 	interestRate: 1.2,
+	movementsDates: [
+		"2019-11-01T13:15:33.035Z",
+		"2019-11-30T09:48:16.867Z",
+		"2019-12-25T06:04:23.907Z",
+		"2020-01-25T14:18:46.235Z",
+		"2020-02-05T16:33:06.386Z",
+		"2020-04-10T14:43:26.374Z",
+		"2020-06-25T18:49:59.371Z",
+		"2020-07-26T12:01:20.894Z",
+	],
 };
 
 const account2 = {
@@ -58,6 +68,16 @@ const account4 = {
 
 	interestRate: 1.2, // %
 	pin: 4444,
+	movementsDates: [
+		"2019-11-01T13:15:33.035Z",
+		"2019-11-30T09:48:16.867Z",
+		"2019-12-25T06:04:23.907Z",
+		"2020-01-25T14:18:46.235Z",
+		"2020-02-05T16:33:06.386Z",
+		"2020-04-10T14:43:26.374Z",
+		"2020-06-25T18:49:59.371Z",
+		"2020-07-26T12:01:20.894Z",
+	],
 };
 
 let accounts = [account1, account2, account3, account4];
@@ -130,7 +150,7 @@ const showTime = () => {
 			minute: "2-digit",
 			second: "2-digit",
 		};
-		const intl = new Intl.DateTimeFormat("en-US", options).format(now);
+		const intl = new Intl.DateTimeFormat("en-GB", options).format(now);
 		labelDate.textContent = intl;
 	}, 1000);
 };
@@ -142,7 +162,8 @@ let eurAccount = true;
 let sorted = false;
 
 const updateUI = function (acc) {
-	displayMovements(acc.movements);
+	sorted = false;
+	displayMovements(acc);
 	calcDisplayBalance(acc);
 	calcDisplaySummary(acc);
 };
@@ -156,9 +177,6 @@ btnLogin.addEventListener("click", function (e) {
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
-		// displayMovements(currentAccount.movements);
-		// calcDisplayBalance(currentAccount);
-		// calcDisplaySummary(currentAccount);
 		updateUI(currentAccount);
 		calcDisplayBalanceUSD(currentAccount);
 		showTime();
@@ -297,21 +315,35 @@ const formatCur = function (value, locale, currency) {
 	}).format(value);
 };
 
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, "0");
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+
 //! ########### EUR ACCOUNT ##########
 
 //? Event handlers
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
 	containerMovements.innerHTML = "";
 
-	const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+	const movs = sort
+		? acc.movements.slice().sort((a, b) => a - b)
+		: acc.movements;
 
 	movs.forEach(function (mov, i) {
 		const type = mov > 0 ? "deposit" : "withdrawal";
 
+		const date = new Date(acc.movementsDates[i]);
+		const day = `${date.getDate()}`.padStart(2, 0);
+		const month = `${date.getMonth() + 1}`.padStart(2, 0);
+		const year = date.getFullYear();
+		const displayDate = `${day}/${month}/${year}`;
+
 		const html = `
 	<div class="movements__row">
 			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-			<div class="movements__value">${mov} €</div>
+			<div class="movements__date">${displayDate}</div>
+			<div class="movements__value">${mov.toFixed(2)} €</div>
 	</div>
 	`;
 
@@ -377,13 +409,13 @@ btnTransfer.addEventListener("click", function (e) {
 	}
 });
 
-btnSort.addEventListener("click", function (e) {
+btnSort.addEventListener("click", function (e, acc) {
 	e.preventDefault();
 
 	if (eurAccount) {
-		displayMovements(currentAccount.movements, !sorted);
+		displayMovements(currentAccount, !sorted);
 	} else {
-		displayMovementsUSD(currentAccount.movementsUSD, !sorted);
+		displayMovementsUSD(currentAccount, !sorted);
 	}
 
 	sorted = !sorted;
@@ -397,17 +429,26 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 	eurAccount = !eurAccount;
 });
 
-const displayMovementsUSD = function (movements, sort = false) {
+const displayMovementsUSD = function (acc, sort = false) {
 	containerMovements.innerHTML = "";
 
-	const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+	const movs = sort
+		? acc.movements.slice().sort((a, b) => a - b)
+		: acc.movements;
 
 	movs.forEach(function (mov, i) {
 		const type = mov > 0 ? "deposit" : "withdrawal";
 
+		const date = new Date(acc.movementsDates[i]);
+		const day = `${date.getDate()}`.padStart(2, 0);
+		const month = `${date.getMonth() + 1}`.padStart(2, 0);
+		const year = date.getFullYear();
+		const displayDate = `${day}/${month}/${year}`;
+
 		const html = `
 	<div class="movements__row">
 			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+			<div class="movements__date">${displayDate}</div>
 			<div class="movements__value">${mov} $</div>
 	</div>
 	`;
@@ -442,7 +483,7 @@ const calcDisplaySummaryUSD = function (acc) {
 
 const updateUI__USD = function (acc) {
 	sorted = false;
-	displayMovementsUSD(acc.movementsUSD);
+	displayMovementsUSD(acc);
 	calcDisplayBalanceUSD(acc);
 	calcDisplaySummaryUSD(acc);
 };
