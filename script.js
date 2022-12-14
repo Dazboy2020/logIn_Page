@@ -3,7 +3,7 @@
 const account1 = {
 	owner: "daz",
 	movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-	movementsUSD: [20, 1000, -250, 2500, -350.21, 1800],
+	movementsUSD: [20, 1000, -250, 2500, -350.21, 1800, -250, 2500],
 	pin: 1974,
 	interestRate: 1.2,
 	movementsDates: [
@@ -21,7 +21,7 @@ const account1 = {
 const account2 = {
 	owner: "jd",
 	movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-	movementsUSD: [750, 2000, -1250, 2575, -950, 3000],
+	movementsUSD: [750, 2000, -1250, 2575, -950, 3000, 200, 100],
 	interestRate: 1.5,
 	pin: 2222,
 
@@ -274,6 +274,7 @@ const createNewUser = function () {
 			pin: newUserPassword,
 			movements: [],
 			movementsUSD: [],
+			movementsDates: [],
 			interestRate: 1.2,
 		});
 
@@ -346,14 +347,12 @@ const displayMovements = function (acc, sort = false) {
 			<div class="movements__value">${mov.toFixed(2)} €</div>
 	</div>
 	`;
-
 		containerMovements.insertAdjacentHTML("afterbegin", html);
 	});
 };
 
 const calcDisplayBalance = function (acc) {
 	acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-
 	labelBalanceEUR.textContent = `${Math.abs(acc.balance).toFixed(2)} €`;
 };
 
@@ -428,7 +427,6 @@ btnSort.addEventListener("click", function (e, acc) {
 //! ################# USD ACCOUNT ############
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
-	// updateUI__USD(currentAccount);
 	console.log("click");
 
 	if (eurAccount) {
@@ -438,8 +436,6 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 	}
 
 	eurAccount = !eurAccount;
-
-	// eurAccount ? updateUI__USD(currentAccount) : updateUI(currentAccount);
 });
 
 const displayMovementsUSD = function (acc, sort = false) {
@@ -457,7 +453,6 @@ const displayMovementsUSD = function (acc, sort = false) {
 		const month = `${date.getMonth() + 1}`.padStart(2, 0);
 		const year = date.getFullYear();
 		const displayDate = `${day}/${month}/${year}`;
-
 		const html = `
 	<div class="movements__row">
 			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
@@ -472,7 +467,6 @@ const displayMovementsUSD = function (acc, sort = false) {
 
 const calcDisplayBalanceUSD = function (acc) {
 	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
-
 	labelBalanceUSD.textContent = `${Math.abs(acc.balance).toFixed(2)} $`;
 };
 
