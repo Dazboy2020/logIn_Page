@@ -256,8 +256,8 @@ signUp.addEventListener("click", function (e) {
 
 const createNewUser = function () {
 	const newUserUsername = enterUsername.value.trim();
-	const newUserPassword = enterPassword.value.trim();
-	const newUserConfirmPassword = confirmPassword.value.trim();
+	const newUserPassword = Number(enterPassword.value.trim());
+	const newUserConfirmPassword = Number(confirmPassword.value.trim());
 
 	if (
 		!newUserUsername ||
