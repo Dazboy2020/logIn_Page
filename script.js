@@ -289,7 +289,6 @@ const createNewUser = function () {
 			pin: newUserPassword,
 			movements: [],
 			movementsUSD: [],
-			movementsDates: [],
 			interestRate: 1.2,
 		});
 
