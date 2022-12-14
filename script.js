@@ -2,19 +2,29 @@
 
 const account1 = {
 	owner: "daz",
-	movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-	movementsUSD: [20, 1000, -250, 2500, -350.21, 1800, -250, 2500],
+	// movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+	// movementsUSD: [20, 1000, -250, 2500, -350.21, 1800, -250, 2500],
 	pin: 1974,
 	interestRate: 1.2,
-	movementsDates: [
-		"2019-11-01T13:15:33.035Z",
-		"2019-11-30T09:48:16.867Z",
-		"2019-12-25T06:04:23.907Z",
-		"2020-01-25T14:18:46.235Z",
-		"2020-02-05T16:33:06.386Z",
-		"2020-04-10T14:43:26.374Z",
-		"2020-06-25T18:49:59.371Z",
-		"2020-07-26T12:01:20.894Z",
+	movements: [
+		[1200, "2019-11-18T21:31:17.178Z"],
+		[4515.23, "2019-12-23T07:42:02.383Z"],
+		[-3006.5, "2020-01-28T09:15:04.904Z"],
+		[200, "2020-04-01T10:17:24.185Z"],
+		[-62.21, "2020-05-08T14:11:59.604Z"],
+		[-1133.9, "2020-05-27T17:01:17.194Z"],
+		[791.97, "2020-07-11T23:36:17.929Z"],
+		[130, "2020-07-12T10:51:36.790Z"],
+	],
+	movementsUSD: [
+		[100, "2019-11-18T21:31:17.178Z"],
+		[45.23, "2019-12-23T07:42:02.383Z"],
+		[-250.5, "2020-01-28T09:15:04.904Z"],
+		[2500, "2020-04-01T10:17:24.185Z"],
+		[-242.21, "2020-05-08T14:11:59.604Z"],
+		[-133.9, "2020-05-27T17:01:17.194Z"],
+		[50.97, "2020-07-11T23:36:17.929Z"],
+		[1500, "2020-07-12T10:51:36.790Z"],
 	],
 };
 
@@ -24,7 +34,6 @@ const account2 = {
 	movementsUSD: [750, 2000, -1250, 2575, -950, 3000, 200, 100],
 	interestRate: 1.5,
 	pin: 2222,
-
 	movementsDates: [
 		"2019-11-01T13:15:33.035Z",
 		"2019-11-30T09:48:16.867Z",
@@ -41,21 +50,27 @@ const account2 = {
 
 const account3 = {
 	owner: "js",
-	movements: [20, 650, -55, 250, -855, 1300],
-	movementsUSD: [3000],
-
 	interestRate: 1.2, // %
 	pin: 1111,
-
-	movementsDates: [
-		"2019-11-18T21:31:17.178Z",
-		"2019-12-23T07:42:02.383Z",
-		"2020-01-28T09:15:04.904Z",
-		"2020-04-01T10:17:24.185Z",
-		"2022-11-30T14:11:59.604Z",
-		"2022-12-01T17:01:17.194Z",
-		"2022-12-02T23:36:17.929Z",
-		"2022-12-06T10:51:36.790Z",
+	movements: [
+		[200, "2019-11-18T21:31:17.178Z"],
+		[455.23, "2019-12-23T07:42:02.383Z"],
+		[-306.5, "2020-01-28T09:15:04.904Z"],
+		[25000, "2020-04-01T10:17:24.185Z"],
+		[-642.21, "2020-05-08T14:11:59.604Z"],
+		[-133.9, "2020-05-27T17:01:17.194Z"],
+		[79.97, "2020-07-11T23:36:17.929Z"],
+		[1300, "2020-07-12T10:51:36.790Z"],
+	],
+	movementsUSD: [
+		[100, "2019-11-18T21:31:17.178Z"],
+		[45.23, "2019-12-23T07:42:02.383Z"],
+		[-250.5, "2020-01-28T09:15:04.904Z"],
+		[2500, "2020-04-01T10:17:24.185Z"],
+		[-242.21, "2020-05-08T14:11:59.604Z"],
+		[-133.9, "2020-05-27T17:01:17.194Z"],
+		[50.97, "2020-07-11T23:36:17.929Z"],
+		[1500, "2020-07-12T10:51:36.790Z"],
 	],
 	currency: "EUR",
 	locale: "pt-PT", // de-DE
@@ -323,55 +338,57 @@ const year = now.getFullYear();
 
 //! ########### EUR ACCOUNT ##########
 
-//? Event handlers
 const displayMovements = function (acc, sort = false) {
 	containerMovements.innerHTML = "";
-
-	const movs = sort
-		? acc.movements.slice().sort((a, b) => a - b)
-		: acc.movements;
-
-	movs.forEach(function (mov, i) {
-		const type = mov > 0 ? "deposit" : "withdrawal";
-
-		const date = new Date(acc.movementsDates[i]);
+	let movements = acc.movements;
+	const moves = sort
+		? movements.slice().sort((a, b) => a[0] - b[0])
+		: movements;
+	moves.forEach(function (mov, i) {
+		const type = mov[0] > 0 ? "deposit" : "withdrawal";
+		let date = new Date(`${mov[1]}`);
 		const day = `${date.getDate()}`.padStart(2, 0);
-		const month = `${date.getMonth() + 1}`.padStart(2, 0);
+		const month = `${date.getMonth() + 1}`.padStart(2, "0");
 		const year = date.getFullYear();
-		const displayDate = `${day}/${month}/${year}`;
-
+		const displayDate = `${day} / ${month} / ${year}`;
 		const html = `
-	<div class="movements__row">
-			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-			<div class="movements__date">${displayDate}</div>
-			<div class="movements__value">${mov.toFixed(2)} €</div>
-	</div>
-	`;
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${
+			i + 1
+		} ${type}</div>
+        <div class="movements__date">${displayDate}</div>
+        <div class="movements__value">${mov[0].toFixed(2)}€</div>
+      </div>
+    `;
 		containerMovements.insertAdjacentHTML("afterbegin", html);
 	});
 };
 
 const calcDisplayBalance = function (acc) {
-	acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+	// acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+	acc.balance = acc.movements.reduce((acc, mov) => acc + mov[0], 0);
 	labelBalanceEUR.textContent = `${Math.abs(acc.balance).toFixed(2)} €`;
 };
 
 const calcDisplaySummary = function (acc) {
 	const incomes = acc.movements
-		.filter((mov) => mov > 0)
-		.reduce((acc, mov) => acc + mov, 0);
-	labelSumIn.textContent = `${Math.abs(incomes).toFixed(2)} €`;
-
-	const out = acc.movements
-		.filter((mov) => mov < 0)
-		.reduce((acc, mov) => acc + mov, 0);
-	labelSumOut.textContent = `${Math.abs(out).toFixed(2)} €`;
+		.filter((mov) => mov[0] > 0)
+		.reduce((acc, mov) => acc + mov[0], 0);
+	labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
 	const interest = acc.movements
-		.filter((mov) => mov > 0)
-		.map((deposit) => (deposit * acc.interestRate) / 100)
+		.filter((mov) => mov[0] > 0)
+		.map((deposit) => (deposit[0] * acc.interestRate) / 100)
+		.filter((int, i, arr) => {
+			return int >= 1;
+		})
 		.reduce((acc, int) => acc + int, 0);
-	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} €`;
+	labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+
+	const out = acc.movements
+		.filter((mov) => mov[0] < 0)
+		.reduce((acc, mov) => acc + mov[0], 0);
+	labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 };
 
 btnTransfer.addEventListener("click", function (e) {
@@ -388,10 +405,8 @@ btnTransfer.addEventListener("click", function (e) {
 		receiverAcc?.owner !== currentAccount.owner &&
 		eurAccount
 	) {
-		currentAccount.movements.push(-amount);
-		receiverAcc.movements.push(amount);
-		currentAccount.movementsDates.push(new Date());
-		receiverAcc.movementsDates.push(new Date());
+		currentAccount.movements.push([-amount, new Date().toISOString()]);
+		receiverAcc.movements.push([amount, new Date().toISOString()]);
 		updateUI(currentAccount);
 		clearTransferInputs();
 	} else {
@@ -402,10 +417,8 @@ btnTransfer.addEventListener("click", function (e) {
 			receiverAcc?.owner !== currentAccount.owner &&
 			!eurAccount
 		) {
-			currentAccount.movementsUSD.push(-amount);
-			receiverAcc.movementsUSD.push(amount);
-			currentAccount.movementsDates.push(new Date());
-			receiverAcc.movementsDates.push(new Date());
+			currentAccount.movementsUSD.push([-amount, new Date().toISOString()]);
+			receiverAcc.movementsUSD.push([amount, new Date().toISOString()]);
 			updateUI__USD(currentAccount);
 			clearTransferInputs();
 		}
@@ -430,8 +443,10 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 	console.log("click");
 
 	if (eurAccount) {
+		console.log(eurAccount);
 		updateUI__USD(currentAccount);
 	} else {
+		console.log(eurAccount);
 		updateUI(currentAccount);
 	}
 
@@ -440,52 +455,55 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 
 const displayMovementsUSD = function (acc, sort = false) {
 	containerMovements.innerHTML = "";
-
-	const movs = sort
-		? acc.movementsUSD.slice().sort((a, b) => a - b)
-		: acc.movementsUSD;
-
-	movs.forEach(function (mov, i) {
-		const type = mov > 0 ? "deposit" : "withdrawal";
-
-		const date = new Date(acc.movementsDates[i]);
+	let movements = acc.movementsUSD;
+	const moves = sort
+		? movements.slice().sort((a, b) => a[0] - b[0])
+		: movements;
+	moves.forEach(function (mov, i) {
+		const type = mov[0] > 0 ? "deposit" : "withdrawal";
+		let date = new Date(`${mov[1]}`);
 		const day = `${date.getDate()}`.padStart(2, 0);
-		const month = `${date.getMonth() + 1}`.padStart(2, 0);
+		const month = `${date.getMonth() + 1}`.padStart(2, "0");
 		const year = date.getFullYear();
-		const displayDate = `${day}/${month}/${year}`;
+		const displayDate = `${day} / ${month} / ${year}`;
 		const html = `
-	<div class="movements__row">
-			<div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-			<div class="movements__date">${displayDate}</div>
-			<div class="movements__value">${mov} $</div>
-	</div>
-	`;
-
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${
+			i + 1
+		} ${type}</div>
+        <div class="movements__date">${displayDate}</div>
+        <div class="movements__value">${mov[0].toFixed(2)}$</div>
+      </div>
+    `;
 		containerMovements.insertAdjacentHTML("afterbegin", html);
 	});
 };
 
 const calcDisplayBalanceUSD = function (acc) {
-	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
+	// acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
+	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov[0], 0);
 	labelBalanceUSD.textContent = `${Math.abs(acc.balance).toFixed(2)} $`;
 };
 
 const calcDisplaySummaryUSD = function (acc) {
 	const incomes = acc.movementsUSD
-		.filter((mov) => mov > 0)
-		.reduce((acc, mov) => acc + mov, 0);
-	labelSumIn.textContent = `${Math.abs(incomes).toFixed(2)} $`;
+		.filter((mov) => mov[0] > 0)
+		.reduce((acc, mov) => acc + mov[0], 0);
+	labelSumIn.textContent = `${incomes.toFixed(2)}$`;
 
 	const out = acc.movementsUSD
-		.filter((mov) => mov < 0)
-		.reduce((acc, mov) => acc + mov, 0);
-	labelSumOut.textContent = `${Math.abs(out).toFixed(2)} $`;
+		.filter((mov) => mov[0] < 0)
+		.reduce((acc, mov) => acc + mov[0], 0);
+	labelSumOut.textContent = `${Math.abs(out).toFixed(2)}$`;
 
 	const interest = acc.movementsUSD
-		.filter((mov) => mov > 0)
-		.map((deposit) => (deposit * acc.interestRate) / 100)
+		.filter((mov) => mov[0] > 0)
+		.map((deposit) => (deposit[0] * acc.interestRate) / 100)
+		.filter((int, i, arr) => {
+			return int >= 1;
+		})
 		.reduce((acc, int) => acc + int, 0);
-	labelSumInterest.textContent = `${Math.abs(interest).toFixed(2)} $`;
+	labelSumInterest.textContent = `${interest.toFixed(2)}$`;
 };
 
 const updateUI__USD = function (acc) {
