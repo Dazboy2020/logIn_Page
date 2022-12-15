@@ -9,10 +9,10 @@ const account1 = {
 	movements: [
 		[1200, "2019-11-18T21:31:17.178Z"],
 		[4515.23, "2019-12-23T07:42:02.383Z"],
-		[-3006.5, "2020-01-28T09:15:04.904Z"],
+		[-1006.5, "2020-01-28T09:15:04.904Z"],
 		[200, "2020-04-01T10:17:24.185Z"],
 		[-62.21, "2020-05-08T14:11:59.604Z"],
-		[-1133.9, "2020-05-27T17:01:17.194Z"],
+		[-133.9, "2020-05-27T17:01:17.194Z"],
 		[791.97, "2020-07-11T23:36:17.929Z"],
 		[130, "2020-07-12T10:51:36.790Z"],
 	],
@@ -35,12 +35,10 @@ const account2 = {
 	movements: [
 		[1200, "2019-11-18T21:31:17.178Z"],
 		[1300, "2019-12-23T07:42:02.383Z"],
-		[-3006.5, "2020-01-28T09:15:04.904Z"],
 	],
 	movementsUSD: [
 		[100, "2019-11-18T21:31:17.178Z"],
 		[45, "2019-12-23T07:42:02.383Z"],
-		[-100, "2020-01-28T09:15:04.904Z"],
 	],
 };
 
@@ -192,7 +190,7 @@ btnLogin.addEventListener("click", function (e) {
 
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
-		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
+		labelWelcome.textContent = `Welcome, ${currentAccount.owner.toUpperCase()}.`;
 		updateUI(currentAccount);
 		calcDisplayBalanceUSD(currentAccount);
 		showTime();
@@ -474,10 +472,8 @@ btnSort.addEventListener("click", function (e, acc) {
 //! ################# USD ACCOUNT ############
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
-	console.log(eurAccount);
 
 	if (eurAccount) {
-		console.log(eurAccount);
 		updateUI__USD(currentAccount);
 	} else {
 		console.log(eurAccount);
