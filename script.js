@@ -30,22 +30,18 @@ const account1 = {
 
 const account2 = {
 	owner: "jd",
-	movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-	movementsUSD: [750, 2000, -1250, 2575, -950, 3000, 200, 100],
 	interestRate: 1.5,
 	pin: 2222,
-	movementsDates: [
-		"2019-11-01T13:15:33.035Z",
-		"2019-11-30T09:48:16.867Z",
-		"2019-12-25T06:04:23.907Z",
-		"2020-01-25T14:18:46.235Z",
-		"2020-02-05T16:33:06.386Z",
-		"2020-04-10T14:43:26.374Z",
-		"2020-06-25T18:49:59.371Z",
-		"2020-07-26T12:01:20.894Z",
+	movements: [
+		[1200, "2019-11-18T21:31:17.178Z"],
+		[1300, "2019-12-23T07:42:02.383Z"],
+		[-3006.5, "2020-01-28T09:15:04.904Z"],
 	],
-	currency: "USD",
-	locale: "en-US",
+	movementsUSD: [
+		[100, "2019-11-18T21:31:17.178Z"],
+		[45, "2019-12-23T07:42:02.383Z"],
+		[-100, "2020-01-28T09:15:04.904Z"],
+	],
 };
 
 const account3 = {
@@ -56,7 +52,7 @@ const account3 = {
 		[200, "2019-11-18T21:31:17.178Z"],
 		[455.23, "2019-12-23T07:42:02.383Z"],
 		[-306.5, "2020-01-28T09:15:04.904Z"],
-		[25000, "2020-04-01T10:17:24.185Z"],
+		[2500, "2020-04-01T10:17:24.185Z"],
 		[-642.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
 		[79.97, "2020-07-11T23:36:17.929Z"],
@@ -190,7 +186,9 @@ const updateUI = function (acc) {
 btnLogin.addEventListener("click", function (e) {
 	e.preventDefault();
 
-	currentAccount = accounts.find((acc) => acc.owner === loginUsername.value);
+	currentAccount = accounts.find(
+		(acc) => acc.owner === loginUsername.value.trim()
+	);
 
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
@@ -250,7 +248,6 @@ const displayIncorrectSignUpError = function () {
 //! Create Button Event Handler
 btnCreate.addEventListener("click", function (e) {
 	e.preventDefault();
-	console.log("create");
 	clearSignUpInputs();
 	displayLogInWindow.classList.toggle("hidden");
 	displaySignUpWindow.classList.toggle("hidden");
@@ -268,8 +265,6 @@ mainPageLink.addEventListener("click", function (e) {
 //! SIgn Up Button Event Handler
 signUp.addEventListener("click", function (e) {
 	e.preventDefault();
-	console.log("sign");
-	// displayIncorrectSignUpError();
 	createNewUser();
 });
 
@@ -370,7 +365,7 @@ const displayMovements = function (acc, sort = false) {
 const calcDisplayBalance = function (acc) {
 	// acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
 	acc.balance = acc.movements.reduce((acc, mov) => acc + mov[0], 0);
-	labelBalanceEUR.textContent = `${Math.abs(acc.balance).toFixed(2)} €`;
+	labelBalanceEUR.textContent = `${acc.balance.toFixed(2)} €`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -488,7 +483,7 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 		console.log(eurAccount);
 		updateUI(currentAccount);
 	}
-
+	clearTransferInputs();
 	eurAccount = !eurAccount;
 
 	eurAccount
@@ -525,7 +520,7 @@ const displayMovementsUSD = function (acc, sort = false) {
 const calcDisplayBalanceUSD = function (acc) {
 	// acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
 	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov[0], 0);
-	labelBalanceUSD.textContent = `${Math.abs(acc.balance).toFixed(2)} $`;
+	labelBalanceUSD.textContent = `${acc.balance.toFixed(2)} $`;
 };
 
 const calcDisplaySummaryUSD = function (acc) {
