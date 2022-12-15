@@ -458,7 +458,7 @@ btnLoan.addEventListener("click", function (e) {
 			currentAccount.movements.push([usdToEur, new Date().toISOString()]);
 			updateUI(currentAccount);
 			updateUI__USD(currentAccount);
-			clearLoginInputs();
+			clearTransferInputs();
 		}
 	}
 });
