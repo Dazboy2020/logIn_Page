@@ -229,6 +229,7 @@ const clearSignUpInputs = function () {
 const clearTransferInputs = function () {
 	inputTransferTo.value = "";
 	inputTransferAmount.value = "";
+	fxTransferAmount.value = "";
 };
 
 //! Display incorrect error message
@@ -447,16 +448,18 @@ btnLoan.addEventListener("click", function (e) {
 		const eurToUsd = amount * 1.06;
 		currentAccount.movements.push([-amount, new Date().toISOString()]);
 		currentAccount.movementsUSD.push([eurToUsd, new Date().toISOString()]);
+		updateUI__USD(currentAccount);
 		updateUI(currentAccount);
-		// updateUI__USD(currentAccount);
+		clearTransferInputs();
 	} else {
 		if (amount > 0 && amount < currentAccount.balanceUSD && !eurAccount) {
-			const usdToEur = amount * 0.96;
+			const usdToEur = amount * 0.94;
 			currentAccount.movementsUSD.push([-amount, new Date().toISOString()]);
 			currentAccount.movements.push([usdToEur, new Date().toISOString()]);
+			updateUI(currentAccount);
 			updateUI__USD(currentAccount);
+			clearLoginInputs();
 		}
-		console.log("yes USD");
 	}
 });
 
