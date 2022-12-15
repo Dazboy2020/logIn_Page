@@ -2,8 +2,6 @@
 
 const account1 = {
 	owner: "daz",
-	// movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-	// movementsUSD: [20, 1000, -250, 2500, -350.21, 1800, -250, 2500],
 	pin: 1974,
 	interestRate: 1.2,
 	movements: [
@@ -53,10 +51,10 @@ const account3 = {
 	interestRate: 1.2, // %
 	pin: 1111,
 	movements: [
-		[200, "2019-11-18T21:31:17.178Z"],
+		[2000, "2019-11-18T21:31:17.178Z"],
 		[455.23, "2019-12-23T07:42:02.383Z"],
 		[-306.5, "2020-01-28T09:15:04.904Z"],
-		[25000, "2020-04-01T10:17:24.185Z"],
+		[25, "2020-04-01T10:17:24.185Z"],
 		[-642.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
 		[79.97, "2020-07-11T23:36:17.929Z"],
@@ -70,7 +68,7 @@ const account3 = {
 		[-242.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
 		[50.97, "2020-07-11T23:36:17.929Z"],
-		[1500, "2020-07-12T10:51:36.790Z"],
+		[11500, "2020-07-12T10:51:36.790Z"],
 	],
 	currency: "EUR",
 	locale: "pt-PT", // de-DE
@@ -122,7 +120,6 @@ const confirmPassword = document.querySelector(".password__confirm__input");
 
 //! ERROR MESSAGES
 const login__details__incorrect = document.querySelector(".error__message");
-
 const signUp__details__incorrect = document.querySelector(
 	".error__message__signUp"
 );
@@ -177,22 +174,32 @@ let eurAccount = true;
 let sorted = false;
 
 const updateUI = function (acc) {
+	// if (eurAccount) {
 	sorted = false;
 	displayMovements(acc);
 	calcDisplayBalance(acc);
 	calcDisplaySummary(acc);
+	eurAccount = !eurAccount;
+	// } else {
+	// 	sorted = false;
+	// 	displayMovementsUSD(acc);
+	// 	calcDisplayBalanceUSD(acc);
+	// 	calcDisplaySummaryUSD(acc);
+	// }
 };
 
 //! LOG_IN function
 btnLogin.addEventListener("click", function (e) {
 	e.preventDefault();
-
+	eurAccount = true;
+	console.log(eurAccount);
 	currentAccount = accounts.find((acc) => acc.owner === loginUsername.value);
 
 	if (currentAccount?.pin === +loginPin.value) {
 		successfulLogin();
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
 		updateUI(currentAccount);
+		calcDisplayBalance(currentAccount);
 		calcDisplayBalanceUSD(currentAccount);
 		showTime();
 	} else {
@@ -296,7 +303,9 @@ const createNewUser = function () {
 
 		labelWelcome.textContent = `Welcome, ${currentAccount.owner}.`;
 		successfulLogin();
-		updateUI__USD(currentAccount);
+		// updateUI__USD(currentAccount);
+		calcDisplayBalanceUSD(currentAccount);
+
 		updateUI(currentAccount);
 		clearTransferInputs();
 		showTime();
@@ -339,7 +348,14 @@ const year = now.getFullYear();
 
 const displayMovements = function (acc, sort = false) {
 	containerMovements.innerHTML = "";
-	let movements = acc.movements;
+	let movements;
+
+	if (eurAccount) {
+		movements = acc.movements;
+	} else {
+		movements = acc.movementsUSD;
+	}
+
 	const moves = sort
 		? movements.slice().sort((a, b) => a[0] - b[0])
 		: movements;
@@ -350,48 +366,95 @@ const displayMovements = function (acc, sort = false) {
 		const month = `${date.getMonth() + 1}`.padStart(2, "0");
 		const year = date.getFullYear();
 		const displayDate = `${day} / ${month} / ${year}`;
-		const html = `
+
+		if (eurAccount) {
+			const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
-			i + 1
-		} ${type}</div>
+				i + 1
+			} ${type}</div>
         <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov[0].toFixed(2)}€</div>
       </div>
     `;
-		containerMovements.insertAdjacentHTML("afterbegin", html);
+			containerMovements.insertAdjacentHTML("afterbegin", html);
+		} else {
+			const html = `
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${
+				i + 1
+			} ${type}</div>
+        <div class="movements__date">${displayDate}</div>
+        <div class="movements__value">${mov[0].toFixed(2)}$</div>
+      </div>
+    `;
+			containerMovements.insertAdjacentHTML("afterbegin", html);
+		}
 	});
+	console.log(eurAccount);
 };
 
 const calcDisplayBalance = function (acc) {
-	// acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-	acc.balance = acc.movements.reduce((acc, mov) => acc + mov[0], 0);
-	labelBalanceEUR.textContent = `${Math.abs(acc.balance).toFixed(2)} €`;
+	if (eurAccount) {
+		acc.balance = acc.movements.reduce((acc, mov) => acc + mov[0], 0);
+		labelBalanceEUR.textContent = `${Math.abs(acc.balance).toFixed(2)} €`;
+	} else {
+		acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov[0], 0);
+		labelBalanceUSD.textContent = `${Math.abs(acc.balance).toFixed(2)} $`;
+	}
 };
 
 const calcDisplaySummary = function (acc) {
-	const incomes = acc.movements
-		.filter((mov) => mov[0] > 0)
-		.reduce((acc, mov) => acc + mov[0], 0);
-	labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+	if (eurAccount) {
+		const incomes = acc.movements
+			.filter((mov) => mov[0] > 0)
+			.reduce((acc, mov) => acc + mov[0], 0);
+		labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+	} else {
+		const incomes = acc.movementsUSD
+			.filter((mov) => mov[0] > 0)
+			.reduce((acc, mov) => acc + mov[0], 0);
+		labelSumIn.textContent = `${incomes.toFixed(2)}$`;
+	}
 
-	const interest = acc.movements
-		.filter((mov) => mov[0] > 0)
-		.map((deposit) => (deposit[0] * acc.interestRate) / 100)
-		.filter((int, i, arr) => {
-			return int >= 1;
-		})
-		.reduce((acc, int) => acc + int, 0);
-	labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+	let interest;
+	if (eurAccount) {
+		interest = acc.movements
+			.filter((mov) => mov[0] > 0)
+			.map((deposit) => (deposit[0] * acc.interestRate) / 100)
+			.filter((int, i, arr) => {
+				return int >= 1;
+			})
+			.reduce((acc, int) => acc + int, 0);
+		labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+	} else {
+		interest = acc.movementsUSD
+			.filter((mov) => mov[0] > 0)
+			.map((deposit) => (deposit[0] * acc.interestRate) / 100)
+			.filter((int, i, arr) => {
+				return int >= 1;
+			})
+			.reduce((acc, int) => acc + int, 0);
+		labelSumInterest.textContent = `${interest.toFixed(2)}$`;
+	}
 
-	const out = acc.movements
-		.filter((mov) => mov[0] < 0)
-		.reduce((acc, mov) => acc + mov[0], 0);
-	labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+	let out;
+	if (eurAccount) {
+		out = acc.movements
+			.filter((mov) => mov[0] < 0)
+			.reduce((acc, mov) => acc + mov[0], 0);
+		labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+	} else {
+		out = acc.movementsUSD
+			.filter((mov) => mov[0] < 0)
+			.reduce((acc, mov) => acc + mov[0], 0);
+		labelSumOut.textContent = `${Math.abs(out).toFixed(2)}$`;
+	}
 };
 
 btnTransfer.addEventListener("click", function (e) {
 	e.preventDefault();
+	console.log(eurAccount);
 	const amount = Number(inputTransferAmount.value);
 	const receiverAcc = accounts.find(
 		(acc) => acc.owner === inputTransferTo.value
@@ -404,10 +467,13 @@ btnTransfer.addEventListener("click", function (e) {
 		receiverAcc?.owner !== currentAccount.owner &&
 		eurAccount
 	) {
+		console.log(eurAccount);
+
 		currentAccount.movements.push([-amount, new Date().toISOString()]);
 		receiverAcc.movements.push([amount, new Date().toISOString()]);
-		updateUI(currentAccount);
+		console.log(eurAccount);
 		clearTransferInputs();
+		updateUI(currentAccount);
 	} else {
 		if (
 			amount > 0 &&
@@ -416,9 +482,11 @@ btnTransfer.addEventListener("click", function (e) {
 			receiverAcc?.owner !== currentAccount.owner &&
 			!eurAccount
 		) {
+			console.log(eurAccount);
 			currentAccount.movementsUSD.push([-amount, new Date().toISOString()]);
 			receiverAcc.movementsUSD.push([amount, new Date().toISOString()]);
-			updateUI__USD(currentAccount);
+			updateUI(currentAccount);
+			// calcDisplayBalanceUSD(currentAccount);
 			clearTransferInputs();
 		}
 	}
@@ -426,12 +494,11 @@ btnTransfer.addEventListener("click", function (e) {
 
 btnSort.addEventListener("click", function (e, acc) {
 	e.preventDefault();
-
-	if (eurAccount) {
-		displayMovements(currentAccount, !sorted);
-	} else {
-		displayMovementsUSD(currentAccount, !sorted);
-	}
+	// if (eurAccount) {
+	displayMovements(currentAccount, !sorted);
+	// } else {
+	// 	displayMovementsUSD(currentAccount, !sorted);
+	// }
 
 	sorted = !sorted;
 });
@@ -439,75 +506,20 @@ btnSort.addEventListener("click", function (e, acc) {
 //! ################# USD ACCOUNT ############
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
-	console.log("click");
-
-	if (eurAccount) {
-		console.log(eurAccount);
-		updateUI__USD(currentAccount);
-	} else {
-		console.log(eurAccount);
-		updateUI(currentAccount);
-	}
-
-	eurAccount = !eurAccount;
+	// console.log("click");
+	console.log(eurAccount);
+	updateUI(currentAccount);
+	// eurAccount = !eurAccount;
 });
 
-const displayMovementsUSD = function (acc, sort = false) {
-	containerMovements.innerHTML = "";
-	let movements = acc.movementsUSD;
-	const moves = sort
-		? movements.slice().sort((a, b) => a[0] - b[0])
-		: movements;
-	moves.forEach(function (mov, i) {
-		const type = mov[0] > 0 ? "deposit" : "withdrawal";
-		let date = new Date(`${mov[1]}`);
-		const day = `${date.getDate()}`.padStart(2, 0);
-		const month = `${date.getMonth() + 1}`.padStart(2, "0");
-		const year = date.getFullYear();
-		const displayDate = `${day} / ${month} / ${year}`;
-		const html = `
-      <div class="movements__row">
-        <div class="movements__type movements__type--${type}">${
-			i + 1
-		} ${type}</div>
-        <div class="movements__date">${displayDate}</div>
-        <div class="movements__value">${mov[0].toFixed(2)}$</div>
-      </div>
-    `;
-		containerMovements.insertAdjacentHTML("afterbegin", html);
-	});
-};
+// const updateUI__USD = function (acc) {
+// 	sorted = false;
+// 	displayMovementsUSD(acc);
+// 	calcDisplayBalanceUSD(acc);
+// 	calcDisplaySummaryUSD(acc);
+// };
 
 const calcDisplayBalanceUSD = function (acc) {
-	// acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
 	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov[0], 0);
 	labelBalanceUSD.textContent = `${Math.abs(acc.balance).toFixed(2)} $`;
-};
-
-const calcDisplaySummaryUSD = function (acc) {
-	const incomes = acc.movementsUSD
-		.filter((mov) => mov[0] > 0)
-		.reduce((acc, mov) => acc + mov[0], 0);
-	labelSumIn.textContent = `${incomes.toFixed(2)}$`;
-
-	const out = acc.movementsUSD
-		.filter((mov) => mov[0] < 0)
-		.reduce((acc, mov) => acc + mov[0], 0);
-	labelSumOut.textContent = `${Math.abs(out).toFixed(2)}$`;
-
-	const interest = acc.movementsUSD
-		.filter((mov) => mov[0] > 0)
-		.map((deposit) => (deposit[0] * acc.interestRate) / 100)
-		.filter((int, i, arr) => {
-			return int >= 1;
-		})
-		.reduce((acc, int) => acc + int, 0);
-	labelSumInterest.textContent = `${interest.toFixed(2)}$`;
-};
-
-const updateUI__USD = function (acc) {
-	sorted = false;
-	displayMovementsUSD(acc);
-	calcDisplayBalanceUSD(acc);
-	calcDisplaySummaryUSD(acc);
 };
