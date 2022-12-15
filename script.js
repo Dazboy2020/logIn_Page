@@ -131,6 +131,7 @@ const signUp__details__incorrect = document.querySelector(
 //! TRANSFER & EXCHANGE PANEL
 const inputTransferTo = document.querySelector(".form__input--to");
 const inputTransferAmount = document.querySelector(".form__input--amount");
+const fxTransferAmount = document.querySelector(".form__input--loan-amount");
 
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
@@ -392,6 +393,8 @@ const calcDisplaySummary = function (acc) {
 	labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 };
 
+//!  ##### #######OPERATION PANELS ##### ##########
+
 btnTransfer.addEventListener("click", function (e) {
 	e.preventDefault();
 	const amount = Number(inputTransferAmount.value);
@@ -426,6 +429,38 @@ btnTransfer.addEventListener("click", function (e) {
 	}
 });
 
+//! #### FX TRANSFER ####
+btnLoan.addEventListener("click", function (e) {
+	e.preventDefault();
+	const amount = Number(fxTransferAmount.value);
+	currentAccount.balanceEUR = currentAccount.movements.reduce(
+		(acc, mov) => acc + mov[0],
+		0
+	);
+
+	currentAccount.balanceUSD = currentAccount.movementsUSD.reduce(
+		(acc, mov) => acc + mov[0],
+		0
+	);
+
+	if (amount > 0 && amount < currentAccount.balanceEUR && eurAccount) {
+		const eurToUsd = amount * 1.06;
+		currentAccount.movements.push([-amount, new Date().toISOString()]);
+		currentAccount.movementsUSD.push([eurToUsd, new Date().toISOString()]);
+		updateUI(currentAccount);
+		// updateUI__USD(currentAccount);
+	} else {
+		if (amount > 0 && amount < currentAccount.balanceUSD && !eurAccount) {
+			const usdToEur = amount * 0.96;
+			currentAccount.movementsUSD.push([-amount, new Date().toISOString()]);
+			currentAccount.movements.push([usdToEur, new Date().toISOString()]);
+			updateUI__USD(currentAccount);
+		}
+		console.log("yes USD");
+	}
+});
+
+//?### SORT ####
 btnSort.addEventListener("click", function (e, acc) {
 	e.preventDefault();
 

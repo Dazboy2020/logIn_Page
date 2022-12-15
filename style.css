@@ -192,6 +192,7 @@ body {
 
 .form.form--loan {
 	grid-template-columns: 1.5fr 1fr 1.5fr;
+	/* min-width: 3rem; */
 }
 .form__label--loan {
 	grid-row: 2;
