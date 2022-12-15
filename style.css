@@ -219,7 +219,8 @@ body {
 	text-align: center;
 }
 
-h2 {
+h2,
+.fx__label {
 	margin-bottom: 1.5rem;
 	font-size: 1.7rem;
 	font-weight: 600;

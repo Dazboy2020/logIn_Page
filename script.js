@@ -104,6 +104,7 @@ const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
 const containerMovements = document.querySelector(".movements");
+const fxlabel = document.querySelector(".fx__label");
 
 //! LOG-IN
 const loginUsername = document.querySelector(".username__input");
@@ -181,6 +182,7 @@ const updateUI = function (acc) {
 	displayMovements(acc);
 	calcDisplayBalance(acc);
 	calcDisplaySummary(acc);
+	fxlabel.textContent = "Sell € for $";
 };
 
 //! LOG_IN function
@@ -439,7 +441,7 @@ btnSort.addEventListener("click", function (e, acc) {
 //! ################# USD ACCOUNT ############
 btnSwitchCurrency.addEventListener("click", function (e) {
 	e.preventDefault();
-	console.log("click");
+	console.log(eurAccount);
 
 	if (eurAccount) {
 		console.log(eurAccount);
@@ -450,6 +452,10 @@ btnSwitchCurrency.addEventListener("click", function (e) {
 	}
 
 	eurAccount = !eurAccount;
+
+	eurAccount
+		? (fxlabel.textContent = "Sell € for $")
+		: (fxlabel.textContent = "Sell $ for €");
 });
 
 const displayMovementsUSD = function (acc, sort = false) {
@@ -510,4 +516,5 @@ const updateUI__USD = function (acc) {
 	displayMovementsUSD(acc);
 	calcDisplayBalanceUSD(acc);
 	calcDisplaySummaryUSD(acc);
+	fxlabel.textContent = "Sell $ for €";
 };
