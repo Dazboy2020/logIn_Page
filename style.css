@@ -158,10 +158,10 @@ body {
 	margin-left: auto;
 }
 
-/* OPERATIONS */
+/*! OPERATIONS  */
 .operation {
 	border-radius: 1rem;
-	padding: 2.5rem 3.5rem;
+	padding: 1.8rem 3.5rem;
 	color: #333;
 }
 
@@ -211,8 +211,8 @@ body {
 	font-size: 1.5rem;
 	text-align: center;
 	font-weight: 600;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 	border: solid black 1px;
 	border-radius: 0.5rem;
 	cursor: pointer;
