@@ -35,10 +35,12 @@ const account2 = {
 	movements: [
 		[1200, "2019-11-18T21:31:17.178Z"],
 		[1300, "2019-12-23T07:42:02.383Z"],
+		[100, "2022-12-23T07:42:02.383Z"],
 	],
 	movementsUSD: [
 		[100, "2019-11-18T21:31:17.178Z"],
 		[45, "2019-12-23T07:42:02.383Z"],
+		[-25, "2022-11-23T07:42:02.383Z"],
 	],
 };
 
@@ -126,6 +128,8 @@ const signUp__details__incorrect = document.querySelector(
 const inputTransferTo = document.querySelector(".form__input--to");
 const inputTransferAmount = document.querySelector(".form__input--amount");
 const fxTransferAmount = document.querySelector(".form__input--loan-amount");
+const closeAccount = document.querySelector(".form--close");
+const closeAccountPin = document.querySelector(".form__input--user");
 
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
@@ -194,6 +198,7 @@ btnLogin.addEventListener("click", function (e) {
 		updateUI(currentAccount);
 		calcDisplayBalanceUSD(currentAccount);
 		showTime();
+		clearTransferInputs();
 	} else {
 		clearLoginInputs();
 		displayIncorrectLoginError();
@@ -226,6 +231,8 @@ const clearTransferInputs = function () {
 	inputTransferTo.value = "";
 	inputTransferAmount.value = "";
 	fxTransferAmount.value = "";
+	closeAccount.value = "";
+	closeAccountPin.value = "";
 };
 
 //! Display incorrect error message
