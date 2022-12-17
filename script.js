@@ -148,7 +148,7 @@ const successfulLogOut = function () {
 
 //! DISPLAY TIME FUNCTION
 const showTime = () => {
-	setInterval(() => {
+	const tick = setInterval(() => {
 		const now = new Date();
 		const options = {
 			weekday: "long",
@@ -160,7 +160,11 @@ const showTime = () => {
 		};
 		const intl = new Intl.DateTimeFormat("en-GB", options).format(now);
 		labelDate.textContent = intl;
-	}, 1000);
+	}, 0);
+
+	tick();
+	const timer = setInterval(tick, 1000);
+	return timer;
 };
 
 //! (acc) is shorthand for currentAccount
