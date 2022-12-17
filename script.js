@@ -161,10 +161,6 @@ const showTime = () => {
 		const intl = new Intl.DateTimeFormat("en-GB", options).format(now);
 		labelDate.textContent = intl;
 	}, 0);
-
-	tick();
-	const timer = setInterval(tick, 1000);
-	return timer;
 };
 
 //! (acc) is shorthand for currentAccount
