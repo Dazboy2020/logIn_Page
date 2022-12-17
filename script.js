@@ -263,19 +263,23 @@ mainPageLink.addEventListener("click", function (e) {
 //! SIgn Up Button Event Handler
 signUp.addEventListener("click", function (e) {
 	e.preventDefault();
-	createNewUser();
+
+	if (enterPassword.value.length < 4) {
+		displayIncorrectSignUpError();
+	} else {
+		createNewUser();
+	}
 });
 
 const createNewUser = function () {
 	const newUserUsername = enterUsername.value.trim();
 	const newUserPassword = Number(enterPassword.value.trim());
 	const newUserConfirmPassword = Number(confirmPassword.value.trim());
-
+	console.log(newUserPassword.length);
 	if (
 		!newUserUsername ||
 		!newUserPassword ||
 		!newUserConfirmPassword ||
-		newUserPassword.length < 2 ||
 		newUserPassword != newUserConfirmPassword
 	) {
 		clearSignUpInputs();
@@ -313,12 +317,6 @@ const formatMovementDate = function (date, locale) {
 	if (daysPassed <= 7) return `${daysPassed} days ago`;
 
 	return new Intl.DateTimeFormat(locale).format(date);
-
-	// const day = `${date.getDate()}`.padStart(2, '0');
-	// const month = `${date.getMonth() + 1}`.padStart(2, 0);
-	// const year = date.getFullYear();
-
-	// return `${day}/${month}/${year}`;
 };
 
 const formatCur = function (value, locale, currency) {
@@ -343,11 +341,8 @@ const displayMovements = function (acc, sort = false) {
 		: movements;
 	moves.forEach(function (mov, i) {
 		const type = mov[0] > 0 ? "deposit" : "withdrawal";
+
 		let date = new Date(`${mov[1]}`);
-		// const day = `${date.getDate()}`.padStart(2, 0);
-		// const month = `${date.getMonth() + 1}`.padStart(2, "0");
-		// const year = date.getFullYear();
-		// const displayDate = `${day} / ${month} / ${year}`;
 		const displayDate = formatMovementDate(date, acc.locale);
 
 		const html = `
@@ -498,13 +493,10 @@ const displayMovementsUSD = function (acc, sort = false) {
 		: movements;
 	moves.forEach(function (mov, i) {
 		const type = mov[0] > 0 ? "deposit" : "withdrawal";
+
 		let date = new Date(`${mov[1]}`);
-		// const day = `${date.getDate()}`.padStart(2, 0);
-		// const month = `${date.getMonth() + 1}`.padStart(2, "0");
-		// const year = date.getFullYear();
 		const displayDate = formatMovementDate(date, acc.locale);
 
-		// const displayDate = `${day} / ${month} / ${year}`;
 		const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
@@ -519,7 +511,6 @@ const displayMovementsUSD = function (acc, sort = false) {
 };
 
 const calcDisplayBalanceUSD = function (acc) {
-	// acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov, 0);
 	acc.balance = acc.movementsUSD.reduce((acc, mov) => acc + mov[0], 0);
 	labelBalanceUSD.textContent = `${acc.balance.toFixed(2)} $`;
 };
@@ -556,8 +547,7 @@ const updateUI__USD = function (acc) {
 btnClose.addEventListener("click", function (e) {
 	e.preventDefault();
 	console.log("click");
-	// console.log(closeAccountUser.value);
-	// console.log(closeAccountPin.value);
+
 	if (
 		closeAccountUser.value === currentAccount.owner &&
 		+closeAccountPin.value === currentAccount.pin
@@ -565,16 +555,8 @@ btnClose.addEventListener("click", function (e) {
 		const index = accounts.findIndex(
 			(acc) => acc.owner === currentAccount.owner
 		);
-		console.log(index);
-		// .indexOf(23)
-
-		// Delete account
 		accounts.splice(index, 1);
-
-		// Hide UI
-		// mainApp.classList.add("hidden");
 		successfulLogOut();
 	}
-
 	clearTransferInputs();
 });

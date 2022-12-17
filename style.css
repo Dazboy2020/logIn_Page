@@ -246,7 +246,7 @@ h2,
 .container {
 	/* position: absolute; */
 	min-width: 50rem;
-	min-height: 45rem;
+	min-height: 50rem;
 	padding: 5rem;
 	background: #ffffff; /* fallback for old browsers */
 	border: black solid 4px;
@@ -329,7 +329,7 @@ h2,
 .container2 {
 	/* position: relative; */
 	min-width: 50rem;
-	min-height: 45rem;
+	min-height: 50rem;
 	padding: 5rem;
 	background: #ffffff; /* fallback for old browsers */
 	border: black solid 4px;
