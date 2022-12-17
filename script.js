@@ -21,7 +21,7 @@ const account1 = {
 		[2500, "2020-04-01T10:17:24.185Z"],
 		[-242.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
-		[50.97, "2022-15-11T23:36:17.929Z"],
+		[50.97, "2022-12-11T23:36:17.929Z"],
 		[1500, "2022-12-16T10:51:36.790Z"],
 	],
 	locale: "en-GB",
@@ -72,27 +72,7 @@ const account3 = {
 	locale: "pt-PT", // de-DE
 };
 
-const account4 = {
-	owner: "dd",
-	movements: [10, 20, 30, 100, 90, 80],
-	movementsUSD: [3000, 2000, 1000, 300, 400, 500],
-
-	interestRate: 1.2, // %
-	pin: 4444,
-	movementsDates: [
-		"2019-11-01T13:15:33.035Z",
-		"2019-11-30T09:48:16.867Z",
-		"2019-12-25T06:04:23.907Z",
-		"2020-01-25T14:18:46.235Z",
-		"2020-02-05T16:33:06.386Z",
-		"2020-04-10T14:43:26.374Z",
-		"2020-06-25T18:49:59.371Z",
-		"2020-07-26T12:01:20.894Z",
-	],
-	locale: "en-GB",
-};
-
-let accounts = [account1, account2, account3, account4];
+let accounts = [account1, account2, account3];
 
 //!  ##### ELEMENTS #####
 const labelBalanceUSD = document.querySelector(".balance__value--USD");
@@ -333,6 +313,7 @@ const formatMovementDate = function (date, locale) {
 	if (daysPassed <= 7) return `${daysPassed} days ago`;
 
 	return new Intl.DateTimeFormat(locale).format(date);
+
 	// const day = `${date.getDate()}`.padStart(2, '0');
 	// const month = `${date.getMonth() + 1}`.padStart(2, 0);
 	// const year = date.getFullYear();
@@ -367,7 +348,7 @@ const displayMovements = function (acc, sort = false) {
 		// const month = `${date.getMonth() + 1}`.padStart(2, "0");
 		// const year = date.getFullYear();
 		// const displayDate = `${day} / ${month} / ${year}`;
-		const displayDate = formatMovementDate(date);
+		const displayDate = formatMovementDate(date, acc.locale);
 
 		const html = `
       <div class="movements__row">
@@ -521,7 +502,7 @@ const displayMovementsUSD = function (acc, sort = false) {
 		// const day = `${date.getDate()}`.padStart(2, 0);
 		// const month = `${date.getMonth() + 1}`.padStart(2, "0");
 		// const year = date.getFullYear();
-		const displayDate = formatMovementDate(date);
+		const displayDate = formatMovementDate(date, acc.locale);
 
 		// const displayDate = `${day} / ${month} / ${year}`;
 		const html = `
