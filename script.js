@@ -2,8 +2,6 @@
 
 const account1 = {
 	owner: "daz",
-	// movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-	// movementsUSD: [20, 1000, -250, 2500, -350.21, 1800, -250, 2500],
 	pin: 1974,
 	interestRate: 1.2,
 	movements: [
@@ -23,9 +21,10 @@ const account1 = {
 		[2500, "2020-04-01T10:17:24.185Z"],
 		[-242.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
-		[50.97, "2020-07-11T23:36:17.929Z"],
-		[1500, "2020-07-12T10:51:36.790Z"],
+		[50.97, "2022-15-11T23:36:17.929Z"],
+		[1500, "2022-12-16T10:51:36.790Z"],
 	],
+	locale: "en-GB",
 };
 
 const account2 = {
@@ -35,13 +34,14 @@ const account2 = {
 	movements: [
 		[1200, "2019-11-18T21:31:17.178Z"],
 		[1300, "2019-12-23T07:42:02.383Z"],
-		[100, "2022-12-23T07:42:02.383Z"],
+		[100, "2022-12-15T07:42:02.383Z"],
 	],
 	movementsUSD: [
 		[100, "2019-11-18T21:31:17.178Z"],
 		[45, "2019-12-23T07:42:02.383Z"],
-		[-25, "2022-11-23T07:42:02.383Z"],
+		[-25, "2022-12-17T07:42:02.383Z"],
 	],
+	locale: "en-GB",
 };
 
 const account3 = {
@@ -55,8 +55,8 @@ const account3 = {
 		[2500, "2020-04-01T10:17:24.185Z"],
 		[-642.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
-		[79.97, "2020-07-11T23:36:17.929Z"],
-		[1300, "2020-07-12T10:51:36.790Z"],
+		[79.97, "2022-12-16T23:36:17.929Z"],
+		[1300, "2022-12-17T10:51:36.790Z"],
 	],
 	movementsUSD: [
 		[100, "2019-11-18T21:31:17.178Z"],
@@ -65,8 +65,8 @@ const account3 = {
 		[2500, "2020-04-01T10:17:24.185Z"],
 		[-242.21, "2020-05-08T14:11:59.604Z"],
 		[-133.9, "2020-05-27T17:01:17.194Z"],
-		[50.97, "2020-07-11T23:36:17.929Z"],
-		[1500, "2020-07-12T10:51:36.790Z"],
+		[50.97, "2022-16-11T23:36:17.929Z"],
+		[1500, "2022-17-12T10:51:36.790Z"],
 	],
 	currency: "EUR",
 	locale: "pt-PT", // de-DE
@@ -89,6 +89,7 @@ const account4 = {
 		"2020-06-25T18:49:59.371Z",
 		"2020-07-26T12:01:20.894Z",
 	],
+	locale: "en-GB",
 };
 
 let accounts = [account1, account2, account3, account4];
@@ -352,10 +353,12 @@ const displayMovements = function (acc, sort = false) {
 	moves.forEach(function (mov, i) {
 		const type = mov[0] > 0 ? "deposit" : "withdrawal";
 		let date = new Date(`${mov[1]}`);
-		const day = `${date.getDate()}`.padStart(2, 0);
-		const month = `${date.getMonth() + 1}`.padStart(2, "0");
-		const year = date.getFullYear();
-		const displayDate = `${day} / ${month} / ${year}`;
+		// const day = `${date.getDate()}`.padStart(2, 0);
+		// const month = `${date.getMonth() + 1}`.padStart(2, "0");
+		// const year = date.getFullYear();
+		// const displayDate = `${day} / ${month} / ${year}`;
+		const displayDate = formatMovementDate(date);
+
 		const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
@@ -505,10 +508,12 @@ const displayMovementsUSD = function (acc, sort = false) {
 	moves.forEach(function (mov, i) {
 		const type = mov[0] > 0 ? "deposit" : "withdrawal";
 		let date = new Date(`${mov[1]}`);
-		const day = `${date.getDate()}`.padStart(2, 0);
-		const month = `${date.getMonth() + 1}`.padStart(2, "0");
-		const year = date.getFullYear();
-		const displayDate = `${day} / ${month} / ${year}`;
+		// const day = `${date.getDate()}`.padStart(2, 0);
+		// const month = `${date.getMonth() + 1}`.padStart(2, "0");
+		// const year = date.getFullYear();
+		const displayDate = formatMovementDate(date);
+
+		// const displayDate = `${day} / ${month} / ${year}`;
 		const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
