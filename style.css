@@ -260,6 +260,7 @@ h2,
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
+	/* margin-bottom: 3rem; */
 }
 
 :placeholder-shown {
@@ -448,4 +449,15 @@ h2,
 	font-size: 1.3rem;
 	font-weight: 500;
 	cursor: pointer;
+}
+
+.account__details {
+	display: flex;
+	/* margin-top: 1rem;
+	margin-right: 1rem; */
+	color: black;
+	font-size: 1.2rem;
+	margin-top: 2rem;
+	font-weight: 600;
+	justify-content: center;
 }

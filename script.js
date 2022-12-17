@@ -129,8 +129,11 @@ const signUp__details__incorrect = document.querySelector(
 const inputTransferTo = document.querySelector(".form__input--to");
 const inputTransferAmount = document.querySelector(".form__input--amount");
 const fxTransferAmount = document.querySelector(".form__input--loan-amount");
-const closeAccount = document.querySelector(".form--close");
-const closeAccountPin = document.querySelector(".form__input--user");
+// const closeAccount = document.querySelector(".form--close");
+// const closeAccountPin = document.querySelector(".form__input--user");
+
+const closeAccountPin = document.querySelector(".form__input--pin");
+const closeAccountUser = document.querySelector(".form__input--user");
 
 //!BUTTONS
 const btnLogin = document.querySelector(".submit__btn");
@@ -142,6 +145,7 @@ const btnLoan = document.querySelector(".form__btn--loan");
 const btnTransfer = document.querySelector(".form__btn--transfer");
 const btnSwitchCurrency = document.querySelector(".switch__btn");
 const btnSort = document.querySelector(".btn--sort");
+const btnClose = document.querySelector(".form__btn--close");
 
 //! NAVBAR ELEMENTS
 const labelWelcome = document.querySelector(".welcomeMessage");
@@ -154,6 +158,12 @@ const successfulLogin = function () {
 	displayLogInWindow.classList.add("hidden");
 	displaySignUpWindow.classList.add("hidden");
 	mainApplication.classList.remove("hidden");
+};
+
+const successfulLogOut = function () {
+	displayLogInWindow.classList.remove("hidden");
+	// displaySignUpWindow.classList.remove("hidden");
+	mainApplication.classList.add("hidden");
 };
 
 //! DISPLAY TIME FUNCTION
@@ -234,7 +244,7 @@ const clearTransferInputs = function () {
 	inputTransferTo.value = "";
 	inputTransferAmount.value = "";
 	fxTransferAmount.value = "";
-	closeAccount.value = "";
+	closeAccountUser.value = "";
 	closeAccountPin.value = "";
 };
 
@@ -561,3 +571,29 @@ const updateUI__USD = function (acc) {
 	calcDisplaySummaryUSD(acc);
 	fxlabel.textContent = "Sell $ for €";
 };
+
+btnClose.addEventListener("click", function (e) {
+	e.preventDefault();
+	console.log("click");
+	// console.log(closeAccountUser.value);
+	// console.log(closeAccountPin.value);
+	if (
+		closeAccountUser.value === currentAccount.owner &&
+		+closeAccountPin.value === currentAccount.pin
+	) {
+		const index = accounts.findIndex(
+			(acc) => acc.owner === currentAccount.owner
+		);
+		console.log(index);
+		// .indexOf(23)
+
+		// Delete account
+		accounts.splice(index, 1);
+
+		// Hide UI
+		// mainApp.classList.add("hidden");
+		successfulLogOut();
+	}
+
+	clearTransferInputs();
+});
