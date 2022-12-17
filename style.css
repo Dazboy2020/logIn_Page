@@ -238,14 +238,14 @@ h2,
 .welcome {
 	display: flex;
 	justify-content: center;
-	font-size: 2.5rem;
+	font-size: 2.8rem;
 	font-weight: 600;
 	margin-bottom: 1rem;
 }
 
 .container {
 	/* position: absolute; */
-	min-width: 40rem;
+	min-width: 50rem;
 	min-height: 45rem;
 	padding: 5rem;
 	background: #ffffff; /* fallback for old browsers */
@@ -272,7 +272,7 @@ h2,
 	background-color: ffffff;
 	font-size: 1.5rem;
 	padding: 1rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 2.5rem;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
@@ -289,8 +289,9 @@ h2,
 .create__btn {
 	/* display: flex; */
 	font-size: 1.5rem;
+	font-weight: 600;
 	padding: 1rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 2.5rem;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
@@ -302,6 +303,7 @@ h2,
 .submit__btn {
 	margin-top: 2rem;
 	cursor: pointer;
+	font-weight: 600;
 }
 
 .password__confirm__input {
@@ -325,7 +327,7 @@ h2,
 
 .container2 {
 	/* position: relative; */
-	min-width: 40rem;
+	min-width: 50rem;
 	min-height: 45rem;
 	padding: 5rem;
 	background: #ffffff; /* fallback for old browsers */
@@ -352,13 +354,17 @@ h2,
 	display: flex;
 	font-size: 1.5rem;
 	padding: 1rem;
-	margin-bottom: 1.5rem;
+	margin-bottom: 2.5rem;
 	justify-content: center;
 	width: 100%;
 	border-radius: 10px;
 	border: black solid 2px;
 	/* cursor: pointer; */
 	box-shadow: 0.8rem 0.8rem 0px #706e6e;
+}
+
+.signup__btn {
+	font-weight: 600;
 }
 
 .signup__btn:hover {
